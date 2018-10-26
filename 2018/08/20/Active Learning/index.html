@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+       | Yang Yang 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Yang">
+    
+    
+
+    <meta name="description" content="Active Learning初探 (minist data)Active Learning(AL)是一类“专家参与标注数据”的半监督学习模型。学术界对Actvie Learning的研究很久了，近两年学术界又出现了Active Learning与Deep Learning等结合的论文，带来了新一波热潮。为什么又火起来？原因可能有三：  AL达到很好的效果，需要较少的数据量 同样的数据量，AL效果">
+<meta property="og:type" content="article">
+<meta property="og:title" content=" | Yang Yang">
+<meta property="og:url" content="http://yoursite.com/2018/08/20/Active Learning/index.html">
+<meta property="og:site_name" content="Yang Yang">
+<meta property="og:description" content="Active Learning初探 (minist data)Active Learning(AL)是一类“专家参与标注数据”的半监督学习模型。学术界对Actvie Learning的研究很久了，近两年学术界又出现了Active Learning与Deep Learning等结合的论文，带来了新一波热潮。为什么又火起来？原因可能有三：  AL达到很好的效果，需要较少的数据量 同样的数据量，AL效果">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-08-20T11:12:49.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content=" | Yang Yang">
+<meta name="twitter:description" content="Active Learning初探 (minist data)Active Learning(AL)是一类“专家参与标注数据”的半监督学习模型。学术界对Actvie Learning的研究很久了，近两年学术界又出现了Active Learning与Deep Learning等结合的论文，带来了新一波热潮。为什么又火起来？原因可能有三：  AL达到很好的效果，需要较少的数据量 同样的数据量，AL效果">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Yang Yang</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/home" title="" class="">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/publication" title="" class="">Publication</a></li>
+              
+                
+                <li class="navigation__item"><a href="/resume" title="" class="">Resume</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+                
+                <li class="navigation__item"><a href="/contact" title="" class="">Contact</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title"></h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-08-20" class="post-meta__date date">2018-08-20</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+
+          
+
+      </span>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>Active Learning初探 (minist data)<br>Active Learning(AL)是一类“专家参与标注数据”的半监督学习模型。学术界对Actvie Learning的研究很久了，近两年学术界又出现了<br>Active Learning与Deep Learning等结合的论文，带来了新一波热潮。为什么又火起来？原因可能有三：</p>
+<ol>
+<li>AL达到很好的效果，需要较少的数据量</li>
+<li>同样的数据量，AL效果更出色</li>
+<li>标注数据很少时，AL的cold-start效果出众</li>
+</ol>
+<p>Let’s talk about Active Learning — a methodology that I believe can dramatically accelerate and cut costs for many machine learning projects. I’ve broken this up into 2 parts. In Part 1, I give a very high-level beginner introduction to Active Learning and how it fits into a machine learning project. In Part 2, I dive into an Active Learning demo. Feel free to read or skip either.</p>
+<p>How Does Machine Learning Work<br>Let’s start with a very brief overview of how machine learning works:</p>
+<p>Many machine learning models are giant guess-and-check machines — they look at some data, calculate a guess, check their answer, adjust a little bit, and try again with some new data. Over lots of data, the model can become very accurate!<br>Labeled Data<br>A critical part of this process is having the “right” answers available for the model to check against. These right answers are called “labels,” and we can say that we have “labeled data” if we have data with labels. Of course, the labels depend on what question is being asked: if we want to train a model to determine the value of a handwritten digit, the labels will be the numerals 0–9, whereas if we want to train a model to determine whether someone is left-handed or right-handed based on their handwriting, the labels will be “left” and “right.”<br>So getting good labeled data is important. But it can also be really hard to get. To train a really great model could require tens or hundreds of thousands of examples. Data usually doesn’t come with labels, so almost always some “experts” have to look through the data and provide the “right” labels. If our experts aren’t much good, neither will our trained model.<br>Sometimes almost anyone could be an “expert” and label data — for example determining the value of a handwritten digit. But imagine if we wanted to label CT scans of the brain: we’d have to find some very skilled radiologists to be our experts. Getting enough expertise lined up to label enough data can get very expensive.<br>And it is! Getting labeled data is a huge and often prohibitive cost for a lot of machine learning projects.<br>Active Learning<br>Active Learning is a methodology that can sometimes greatly reduce the amount of labeled data required to train a model. It does this by prioritizing the labeling work for the experts.<br>Instead of collecting all the labels for all the data at once, Active Learning prioritizes which data the model is most confused about and requests labels for just those. The model then trains a little bit on that small amount of labeled data, and then again asks for some more labels for the most confusing data.<br>By prioritizing the most confusing examples, the model can focus the experts on providing the most useful information. This helps the model learn faster, and lets the experts skip labeling data that wouldn’t be very helpful to the model. The result is that in some cases we can greatly reduce the number of labels we need to collect from experts and still get a great model. This means time and money savings for machine learning projects!<br>PART 2<br>MNIST example<br>Let’s take a look at a real Active Learning example.<br>I’m using the well documented MNIST dataset and canonical Tensor Flow convolutional neural net model for MNIST. A more clever model and architecture might be able to do better, but we want to keep this straightforward.<br>The MNIST dataset is a publicly available labeled dataset that contains images of handwritten digits and their value labels. It is often used in machine learning tutorials because the labeled data is high quality and simple models perform well on it.</p>
+<p>Design<br>This project has 2 parts:<br>Simulate Active Learning while training a model<br>Determine efficiency of Active Learning on a rigorously trained model<br>Training a Model<br>The model I’m using implements “mini-batch” training. The model looks at a small number of labeled examples from the training set (a mini-batch) at the same time and makes one learning “step” before moving to the next small set of examples. It does this for a set number of iterations until it is done training.<br>Here, we can see just a normal (non-active learning) training process as the model is trained on randomly composed mini-batches. Every few iterations in mini-batch training, I run the model on the test set (not as a part of training) to track how the model is doing as the amount of labeled data examples increases. I provide the accuracy and the cross-entropy cost (something like average error). In this case, each mini-batch has 10 examples in it, and I run it up to 2000 mini-batches (20000 labels):</p>
+<p>*Note: In all the graphs in this article, each line is actually the average of 3 runs.<br>For this classification task, we are trying to classify a hand-written digit as a digit from 0–9, meaning that randomly guessing would result in ~10% accuracy. This simple neural net already does a lot better than that!<br>Simulating Active Learning<br>Getting active learning results is a bit trickier. We won’t randomly select data from the training set for each mini-batch. Instead, the model will evaluate many examples in the training set and then select the examples it evaluates least confidently to make the mini-batch (in this project, I look at 1000 random examples in the training set to determine the least confident 10). From there, the model will look at the labels for that mini-batch like normal and do one training step. It will repeat the process with the updated model. Like in the “non-active learning” case, every few iterations I run the model on the test set to track how the model’s progress.</p>
+<p>There are lots of great papers about how to implement Active Learning. For this, I just wanted to do something simple: The model uses a “softmax” to generate a probability associated with each possible classification — in this case each digit from 0–9. I calculate “confidence” by taking the maximum probability (most confident classification) minus the minimum probability. The more confident the model, the larger this difference (confident doesn’t mean correct).</p>
+<p>The active learning process takes the examples with the lowest confidence scores and trains on those. And of course, as the model changes, its confidence about a given example might change too.<br>The MNIST dataset already comes with all the labels we need, but this process simulates asking experts for labels one mini-batch at a time. In the normal case, the experts are asked randomly to label data. In the active learning case, the model specifically selects which examples it wants the experts to label.<br>Let’s take a look at the Active Learning results vs the normal results. Mind the y-axis! I’ve zoomed in a bit so things aren’t so scrunched:</p>
+<p>While it might not look like much on the y-axis, think of it this way: by mini-batch 800 (8000 labels), the Active Learning approach matches the normal approach in accuracy after 2000 mini-batches (20000 labels). So with less than half the labels Active Learning can get the same accuracy.<br>Things are a little less satisfying in the cross entropy graph. They stay pretty close, and the Active Learning cost actually increases at the end. I’ll come back to this soon.<br>Binary Tasks with Skewed Samples<br>One place that Active Learning has a lot of potential is in tasks with a strong skew in the data.<br>When training a model, it is important to not only have lots of labeled data, but also a reasonable representation of the different classes in the data. If we are trying to train a model on the MNIST dataset but exclude all the “3s,” it doesn’t matter how many labels we have for the other digits, our model won’t be able to classify 3s well. If we have just a few 3s, we’ll still run into a problem because the model will optimize for correctly classifying the other digits that are much better represented in the data.<br>While this skew isn’t a problem in the MNIST dataset, it is a real life problem. If we’re training a model to detect tumors in brain CT scans, most of the CT scans won’t contain any tumors, so the labeled data will skew heavily towards the “no-tumor” class. Because Active Learning prioritizes examples it is less confident in, it might be possible that Active Learning can help identify and prioritize “unusual” or under-represented data.<br>Let’s simulate this skew problem by changing the MNIST problem from classifying digits to classifying whether or not a handwritten digit is a 3. About 90% of the labeled data is not a 3, and only about 10% of the data is a 3. So the dumb strategy would be to always guess “not 3” and get 90% accuracy. Let’s see how Active Learning does:</p>
+<p>With Active Learning, in 500 mini-batches (5000 labels) we achieve the same or better accuracy and cross-entropy as we do with 2000 mini-batches (20000 labels) the normal way. That is a 4x reduction in labels for the same results. How does Active Learning do this? In this simple “3 or not-3” example, we have some insight:</p>
+<p>Here is a graph that shows what % of each mini-batch are 3s. We can see that in the normal case, only about 10% of the data in each mini-batch are 3s — just like the overall dataset. However, because Active Learning prioritizes examples it doesn’t understand, it ends up prioritizing looking at 3s. As a result, between 40–50% of the examples in each mini-batch are 3s, meaning that the model has a more representative sample of the classes it is trying to classify. This is actually pretty cool: nowhere do we tell the algorithm to try to balance 3s and not-3s in the training.<br>But why stop at 500 mini-batches? Here’s what happens when we run this forward:</p>
+<p>It looks like the Active Learning approach doesn’t do as well as the normal approach in the long run. In fact, the longer the Active Learning model trains, the worse it gets. To better understand this, let’s take a look at the mini-batch 3s distribution:</p>
+<p>The Active Learning gets so good at prioritizing labeling things that look like 3s that the training data actually runs out of 3s, and the model is stuck training on hardly any 3s at all. As a result, the model starts to optimize itself away from being able to classify 3s, and gets worse over time.<br>Re-sampling<br>One simple way to correct this is to train on some previously trained-on data with each mini-batch. That way, even at the end of training when there are no more 3s in the training data, the model will still be pulling examples from the pool of previously trained-on data that definitely does contain 3s. I do this by “re-sampling” 10 random previous examples in each mini-batch, meaning that each mini-batch now contains 20 examples (10 new and 10 old).<br>Because each mini-batch now has 20 examples in it, it would be a little dishonest to show the result of this next to the previous results, because the model will be doing more training in each mini-batch, so I’ll also include a normal training with re-sampling:</p>
+<p>That looks much better. The Active Learning with re-sampling tracks the original Active Learning plot until it gets to around 400 mini-batches, at which point it keeps improving. The “normal with re-sampling” does better than the original, which reflects the fact that the model is doing more training. By mini-batch 500 the new Active Learning model achieves what the normal model does at mini-batch 2000, and at mini-batch 2000 it produces a model with better accuracy and cross-entropy.<br>We can take this new re-sampling method and apply it back to the original 10 digit classification problem and see improvement:</p>
+<p>This also looks much better than what we saw before. The Active Learning with re-sampling cross entropy curve is now much more satisfying than the normal curve before, and in both accuracy and cross entropy Active Learning looks significantly better than normal learning. By mini-batch 700 (7000 labels) Active Learning with re-sampling is more accurate than the normal approach at 2000 mini-batches, and by mini-batch 1000 it has a lower cost. This makes Active Learning with re-sampling over 2x more efficient with labels than the normal approach.<br>Multiple Epochs<br>So far, we have shown that over one pass of the data, Active Learning (with re-sampling) can be more accurate and have lower cross entropy with fewer labels. An interesting question at this point is whether these results hold up after more rigorous training. As with many neural networks, the way to maximize the accuracy and minimize the cross entropy cost in our model is to review the data many times (each iteration of training on all the available labeled data once is called an “epoch”). Sure, maybe prioritizing confusing data helps to jump start the model’s training at first, but in the long run does it matter? Is it really the case that examples the model chooses early on, when it has hardly trained at all, are valuable in the late stages of training?<br>In this section, we’ll try to answer the question, “If I only had X labels, how good could my model get if I collected those labels with Active Learning vs normal?”<br>Multiple Epochs Design<br>I train many models on different sizes of training data. Some models will only be given 250 labels in their training set and train as much as possible on that. Others will be given 500, and so on in increments of 250, all the way up to 20000 labels.<br>For each training set size, one set of training data will be randomly selected from all the MNIST training data, and another set will be selected using Active Learning. One model will train on each.<br>For each training set size, Active Learning chooses the labels by running the previous, single-pass of the data until it has 250 labels, then 500 labels, and so on all the way up to 20000 labels.<br>Once the training set labels are selected, all models train like normal, randomly choosing mini-batches of 50 examples and training on each example exactly once per epoch (no special Active Learning stuff happening here). All models train for 20 epochs.<br>Multiple Epochs Results<br>So how does performance improve as we have more labels to train on? Here we have the standard 10-digit classification task. Notice the x-axis is now “labels” and not mini-batches:</p>
+<p>Across the board we are getting much more accuracy and lower cross-entropy out of these labels than when we were just doing 1 epoch, so we can clearly see the benefit of training over multiple epochs.<br>But beyond that, this really looks pretty incredible. At around 6000 labels, Active Learning has the same accuracy and cross entropy that the normal method has at 20000 labels. Active Learning appears to be over 3x more effective than the normal method in this case, an even bigger difference than we observed in just 1 epoch!<br>This is a somewhat surprising and exciting result. It gives us some confidence that Active Learning really is choosing juicy examples that don’t just help early in training but also 20 epochs in.<br>And what about the “3 or not-3” task?</p>
+<p>Also an impressive display from Active Learning. With about 5000 labels, Active Learning can match what normally takes 20000 labels. That is a 4x more effective use of labels.<br>Closing<br>We briefly explored what Active Learning is and how it might help machine learning projects. We also went hands on using the MNIST dataset to see how Active Learning could reduce the number of expert labels required to achieve a great model result.<br>To me, this is really exciting. Collecting labels from experts can be a huge burden and make projects prohibitively expensive. In the examples above, we increased the efficiency of our labels by more than 3x. That is real time and money saved in a machine learning project. I have no doubt that more clever and knowledgeable people could squeeze even more juice out of these labels.<br>My hope is that by implementing tricks like this, we can accelerate machine learning projects, and make previously impossible projects possible.<br>Domino<br>I’ll also say here that to put this together took hundreds of hours of CPU time, and the coordination of many training tasks. I swear I am not being paid at all to say this: my subscription to Domino Data Lab made this possible. By using Domino Data Lab, I could easily kick off dozens of jobs on machines much more powerful than my laptop and be notified via email when things were working well or not. And because that was easy, I had the time to go down little rabbit holes to come up with my favorite examples. So, thanks Domino!<br>Code available here: <a href="https://github.com/smatt989/ActiveLearning" target="_blank" rel="external">https://github.com/smatt989/ActiveLearning</a></p>
+<p>Machine LearningActive LearningArtificial IntelligenceEngineeringLabelling<br>Like what you read? Give Matthew Slotkin a round of applause.<br>From a quick cheer to a standing ovation, clap to show how much you enjoyed this story.</p>
+<p>131<br>2<br>Following<br>Go to the profile of Matthew Slotkin<br>Matthew Slotkin<br>Follow<br>Becoming Human: Artificial Intelligence Magazine<br>Becoming Human: Artificial Intelligence Magazine<br>Latest News, Info and Tutorials on Artificial Intelligence, Machine Learning, Deep Learning, Big Data and what it means for Humanity.<br>More from Becoming Human: Artificial Intelligence Magazine<br>Let’s build a simple Neural Net!<br>Go to the profile of Arnab Ghose<br>Arnab Ghose</p>
+<p>345</p>
+<p>More on Artificial Intelligence from Becoming Human: Artificial Intelligence Magazine<br>Explained in 5 Minutes: Bitcoin<br>Go to the profile of Dhruv Shah<br>Dhruv Shah</p>
+<p>1.7K</p>
+<p>Also tagged Machine Learning<br>Be a more efficient data scientist, master pandas with this guide<br>Go to the profile of Félix Revert<br>Félix Revert</p>
+<p>1.2K</p>
+<p>Responses<br>Yang Yang<br>Write a response…<br>Yang Yang</p>
+
+  </section>
+
+  
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'yangyangfuture'; 
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2018/08/20/Active Learning/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"fighting41love"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+ 
+</footer>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]--><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>
