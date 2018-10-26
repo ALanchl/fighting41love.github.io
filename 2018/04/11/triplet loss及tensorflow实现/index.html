@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Triplet Loss及tensorflow实现 | Yang Yang 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Yang">
+    
+    
+
+    <meta name="description" content="本文译自Olivier Moindrot的blog，英语好的可移步至其博客。 我们在之前的文章里介绍了siamese network以及triplet network的基本概念，本文将介绍一下triplet network中triplet loss一些有趣的地方。 前言 在人脸识别领域，triplet loss通常用来学习人脸的向量表示。如果您对triplet loss不太了解推荐观看Andrew">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Triplet Loss及tensorflow实现 | Yang Yang">
+<meta property="og:url" content="http://yoursite.com/2018/04/11/triplet loss及tensorflow实现/index.html">
+<meta property="og:site_name" content="Yang Yang">
+<meta property="og:description" content="本文译自Olivier Moindrot的blog，英语好的可移步至其博客。 我们在之前的文章里介绍了siamese network以及triplet network的基本概念，本文将介绍一下triplet network中triplet loss一些有趣的地方。 前言 在人脸识别领域，triplet loss通常用来学习人脸的向量表示。如果您对triplet loss不太了解推荐观看Andrew">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-f31573c2a2b2ca60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-c56171dddc45db4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-4a0aeef5116b2068.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2018-04-11T12:20:45.065Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Triplet Loss及tensorflow实现 | Yang Yang">
+<meta name="twitter:description" content="本文译自Olivier Moindrot的blog，英语好的可移步至其博客。 我们在之前的文章里介绍了siamese network以及triplet network的基本概念，本文将介绍一下triplet network中triplet loss一些有趣的地方。 前言 在人脸识别领域，triplet loss通常用来学习人脸的向量表示。如果您对triplet loss不太了解推荐观看Andrew">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2528310-f31573c2a2b2ca60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Yang Yang</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/home" title="" class="">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/publication" title="" class="">Publication</a></li>
+              
+                
+                <li class="navigation__item"><a href="/resume" title="" class="">Resume</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+                
+                <li class="navigation__item"><a href="/contact" title="" class="">Contact</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Triplet Loss及tensorflow实现</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-04-11" class="post-meta__date date">2018-04-11</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/深度学习/">深度学习</a>
+            </font>
+          
+
+          
+
+      </span>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>本文译自Olivier Moindrot的<a href="https://omoindrot.github.io/triplet-loss#batch-hard-strategy" target="_blank" rel="external">blog</a>，英语好的可移步至其博客。</p>
+<p>我们在之前的文章里介绍了<a href="https://zhuanlan.zhihu.com/p/35040994" target="_blank" rel="external">siamese network以及triplet network</a>的基本概念，本文将介绍一下triplet network中triplet loss一些有趣的地方。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p> 在人脸识别领域，triplet loss通常用来学习人脸的向量表示。如果您对triplet loss不太了解推荐观看Andrew Ng在Coursera上的deep learning specialization。</p>
+<p>Triplet loss难于实现，本文将介绍triplet loss的定义以及triplet训练时<br>的策略。为什么要有训练策略？所有的triplet组合太多了，都要训练太inefficient，所以要挑一些比较好的triplet进行训练，高效&amp;效果好。</p>
+<h2 id="Triplet-loss-和-triplet-mining"><a href="#Triplet-loss-和-triplet-mining" class="headerlink" title="Triplet loss 和 triplet mining"></a>Triplet loss 和 triplet mining</h2><h3 id="为什么不用softmax，而使用triplet-loss"><a href="#为什么不用softmax，而使用triplet-loss" class="headerlink" title="为什么不用softmax，而使用triplet loss?"></a>为什么不用softmax，而使用triplet loss?</h3><p>Triplet loss最早被用在人脸识别任务上，《FaceNet: A Unified Embedding for Face Recognition》 by Google。Google的研究人员提出了通过online triplet mining的方式训练处人脸的新向量表示。接下来我们会详细讨论。</p>
+<p>在有监督的机器学习领域，通常有固定的类别，这时就可以使用基于softmax的交叉熵损失函数进行训练。但有时，类别是一个变量，此时使用triplet loss就能解决问题。在人脸识别，Quora question pair任务中，triplet loss的优势在于细节区分，即当两个输入相似时，triplet loss能够更好地对细节进行建模，相当于加入了两个输入差异性差异的度量，学习到输入的更好表示，从而在上述两个任务中有出色的表现。当然，triplet loss的缺点在于其收敛速度慢。</p>
+<p>Triplet loss的motivation是要让属于同一个人的人脸尽可能地“近”<br>（在embedding空间里），而与其他人脸尽可能地“远”。</p>
+<h3 id="Triplet-loss-定义"><a href="#Triplet-loss-定义" class="headerlink" title="Triplet loss 定义"></a>Triplet loss 定义</h3><p><img src="http://upload-images.jianshu.io/upload_images/2528310-f31573c2a2b2ca60.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Triplet loss 在 positive faces (Obama) 和 negative face (Macron)上的示意图"></p>
+<p>triplet loss的目标是:<br>两个具有同样标签的样本，他们在新的编码空间里距离很近。<br>两个具有不同标签的样本，他们在新的编码空间里距离很远。<br>进一步，我们希望两个positive examples和一个negative example中，negative example与positive example的距离，大于positive examples之间的距离，或者大于某一个阈值：margin。</p>
+<p>triplet loss定义在下面三元组概念之上：</p>
+<ul>
+<li>an <strong>a</strong>nchor(基准正例)</li>
+<li>a <strong>p</strong>ositive of the same class as the anchor （正例）</li>
+<li>a <strong>n</strong>egative of a different class （负例）</li>
+</ul>
+<p>对于（a,p,n）这个triplet(三元组)，其triplet loss就可以写作：<br><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mrow><mi mathvariant="script">L</mi></mrow><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>d</mi><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>p</mi><mo>)</mo><mo>−</mo><mi>d</mi><mo>(</mo><mi>a</mi><mo separator="true">,</mo><mi>n</mi><mo>)</mo><mo>+</mo><mi>m</mi><mi>a</mi><mi>r</mi><mi>g</mi><mi>i</mi><mi>n</mi><mo separator="true">,</mo><mn>0</mn><mo>)</mo></mrow><annotation encoding="application/x-tex">\mathcal{L} = max(d(a, p) - d(a, n) + margin, 0)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="strut" style="height:0.75em;"></span><span class="strut bottom" style="height:1em;vertical-align:-0.25em;"></span><span class="base textstyle uncramped"><span class="mord textstyle uncramped"><span class="mord mathcal">L</span></span><span class="mrel">=</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit">x</span><span class="mopen">(</span><span class="mord mathit">d</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">p</span><span class="mclose">)</span><span class="mbin">−</span><span class="mord mathit">d</span><span class="mopen">(</span><span class="mord mathit">a</span><span class="mpunct">,</span><span class="mord mathit">n</span><span class="mclose">)</span><span class="mbin">+</span><span class="mord mathit">m</span><span class="mord mathit">a</span><span class="mord mathit" style="margin-right:0.02778em;">r</span><span class="mord mathit" style="margin-right:0.03588em;">g</span><span class="mord mathit">i</span><span class="mord mathit">n</span><span class="mpunct">,</span><span class="mord mathrm">0</span><span class="mclose">)</span></span></span></span></p>
+<p>这时可以通过最小化上述损失函数，a与p之间的距离d(a,p)=0，而a与n之间的距离d(a,n)大于d(a,p)+margin。当negative example很好识别时，上述损失函数为0，否则是一个比较大的值。</p>
+<h3 id="Triplet-mining"><a href="#Triplet-mining" class="headerlink" title="Triplet mining"></a>Triplet mining</h3><p>基于triplet loss的定义，可以将triplet(三元组)分为三类：</p>
+<blockquote>
+<p>easy triplets(简单三元组): triplet对应的损失为0的三元组，形式化定义为$d(a,n)&gt;d(a,p)+margin$。</p>
+<p>hard triplets（困难三元组）: negative example 与anchor距离小于anchor与positive example的距离，形式化定义为$d(a,n)&lt;d(a,p)$。</p>
+<p>semi-hard triplets（一般三元组）: negative example 与anchor距离大于anchor与positive example的距离，但还不至于使得loss为0，即$d(a,p)&lt;d(a,n)&lt;d(a,p)+margin$。</p>
+</blockquote>
+<p>上述三种概念都是基于negative example与anchor和positive距离定义的。类似的，可以根据上述定义将negative examples分为3类：hard negatives, easy negatives, semi-hard negatives。如下图所示，这个图构建了编码空间中三种negative examples与anchor和positive example之间的距离关系。</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-c56171dddc45db4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="三种negative examples与anchor和positive example之间的距离关系"></p>
+<p>如何选择triplet或者negative examples，对模型的效率有很大影响。在上述Facenet论文中，采用了随机的semi-hard negative构建triplet进行训练，取得了不错的效果。</p>
+<h3 id="Offline和online-triplet-mining"><a href="#Offline和online-triplet-mining" class="headerlink" title="Offline和online triplet mining"></a>Offline和online triplet mining</h3><p>通过上面的分析，可以看到，easy negative example比较容易识别，没必要构建太多由easy negative example组成的triplet，否则会严重降低训练效率。若都采用hard negative example，又可能会影响训练效果。这时，就需要一定的方法进行triplet的挑选，也就是“mine the triplets”。</p>
+<h4 id="Offline-triplet-mining"><a href="#Offline-triplet-mining" class="headerlink" title="Offline triplet mining"></a>Offline triplet mining</h4><p>离线方式的triplet mining将所有的训练数据喂给神经网络，得到每一个训练样本的编码，根据编码计算得到negative example与anchor和positive example之间的距离，根据这个距离判断semi-hard triplets，hard triplets还是easy triplets。offline triplet mining 仅仅选择select hard or semi-hard triplets，因为easy triplet太容易了，没有必要训练。</p>
+<p>总得来说，这个方法不够高效，因为最初要把所有的训练数据喂给神经网络，而且每过1个或几个epoch，可能还要重新对negative examples进行分类。</p>
+<h4 id="Online-triplet-mining"><a href="#Online-triplet-mining" class="headerlink" title="Online triplet mining"></a>Online triplet mining</h4><p>Google的研究人员为解决上述问题，提出了online triplet mining的方法。该方法的motivation比较简单，将B张图片（一个batch）喂给神经网络，得到B张图片的embedding，将triplet的组合一共最多$B^3$个triplets，其中包含很多没用的triplet（比如，三个negative examples和三个positive examples，这种称作invalid triplets）。哪些是valid triplets呢？假设一个triplet$(B_i,B_j,B_k)$，如果样本i和j有相同的label且不是同一个样本，而样本k具有不同的label，则称其为valid triplet。</p>
+<p>假设一个batch的数据包含P*K张人脸，P个人，每人K张图片。<br>针对valid triplet的“挑选”，有以下两个策略（来自论文<a href="https://arxiv.org/abs/1703.07737" target="_blank" rel="external">《In Defense of the Triplet Loss for Person Re-Identification》</a>：</p>
+<ul>
+<li>batch all: 计算所有的valid triplet，对hard 和 semi-hard triplets上的loss进行平均。<ul>
+<li>不考虑easy triplets，因为easy triplets的损失为0，平均会把整体损失缩小</li>
+<li>将会产生PK(K-1)(PK-K)个triplet，即PK个anchor，对于每个anchor有k-1个可能的positive example，PK-K个可能的negative examples</li>
+</ul>
+</li>
+<li>batch hard: 对于每一个anchor，选择hardest positive example(距离anchor最大的positive example)和hardest negative(距离anchor最大的negative example)，<ul>
+<li>由此产生PK个triplet</li>
+<li>这些triplet是最难分的</li>
+</ul>
+</li>
+</ul>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-4a0aeef5116b2068.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Online triplet loss"></p>
+<p>论文<a href="https://arxiv.org/abs/1703.07737" target="_blank" rel="external">《In Defense of the Triplet Loss for Person Re-Identification》</a>实验结果表明，batch hard的表现是最好的。</p>
+<p>那如何用tensorflow实现triplet loss呢？</p>
+<h3 id="offline-triplets"><a href="#offline-triplets" class="headerlink" title="offline triplets"></a>offline triplets</h3><p>很简单，就是实现上面offline triplets的公式，tensorflow的实现如下：<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">anchor_output = ...    <span class="comment"># shape [None, 128]</span></div><div class="line">positive_output = ...  <span class="comment"># shape [None, 128]</span></div><div class="line">negative_output = ...  <span class="comment"># shape [None, 128]</span></div><div class="line"></div><div class="line">d_pos = tf.reduce_sum(tf.square(anchor_output - positive_output), 1)</div><div class="line">d_neg = tf.reduce_sum(tf.square(anchor_output - negative_output), 1)</div><div class="line"></div><div class="line">loss = tf.maximum(0.0, margin + d_pos - d_neg)</div><div class="line">loss = tf.reduce_mean(loss)</div></pre></td></tr></table></figure></p>
+<h3 id="online-triplets"><a href="#online-triplets" class="headerlink" title="online triplets"></a>online triplets</h3><h4 id="batch-all的实现方式"><a href="#batch-all的实现方式" class="headerlink" title="batch all的实现方式"></a>batch all的实现方式</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div></pre></td><td class="code"><pre><div class="line">def batch_all_triplet_loss(labels, embeddings, margin, <span class="attr">squared=False):</span></div><div class="line">    <span class="string">""</span><span class="string">"Build the triplet loss over a batch of embeddings.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    We generate all the valid triplets and average the loss over the positive ones.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    Args:</span></div><div class="line"><span class="string">        labels: labels of the batch, of size (batch_size,)</span></div><div class="line"><span class="string">        embeddings: tensor of shape (batch_size, embed_dim)</span></div><div class="line"><span class="string">        margin: margin for triplet loss</span></div><div class="line"><span class="string">        squared: Boolean. If true, output is the pairwise squared euclidean distance matrix.</span></div><div class="line"><span class="string">                 If false, output is the pairwise euclidean distance matrix.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    Returns:</span></div><div class="line"><span class="string">        triplet_loss: scalar tensor containing the triplet loss</span></div><div class="line"><span class="string">    "</span><span class="string">""</span></div><div class="line">    <span class="comment"># Get the pairwise distance matrix</span></div><div class="line">    <span class="attr">pairwise_dist</span> = _pairwise_distances(embeddings, <span class="attr">squared=squared)</span></div><div class="line"></div><div class="line">    <span class="attr">anchor_positive_dist</span> = tf.expand_dims(pairwise_dist, <span class="number">2</span>)</div><div class="line">    <span class="attr">anchor_negative_dist</span> = tf.expand_dims(pairwise_dist, <span class="number">1</span>)</div><div class="line"></div><div class="line">    <span class="comment"># Compute a 3D tensor of size (batch_size, batch_size, batch_size)</span></div><div class="line">    <span class="comment"># triplet_loss[i, j, k] will contain the triplet loss of anchor=i, positive=j, negative=k</span></div><div class="line">    <span class="comment"># Uses broadcasting where the 1st argument has shape (batch_size, batch_size, 1)</span></div><div class="line">    <span class="comment"># and the 2nd (batch_size, 1, batch_size)</span></div><div class="line">    <span class="attr">triplet_loss</span> = anchor_positive_dist - anchor_negative_dist + margin</div><div class="line"></div><div class="line">    <span class="comment"># Put to zero the invalid triplets</span></div><div class="line">    <span class="comment"># (where label(a) != label(p) or label(n) == label(a) or a == p)</span></div><div class="line">    <span class="attr">mask</span> = _get_triplet_mask(labels)</div><div class="line">    <span class="attr">mask</span> = tf.to_float(mask)</div><div class="line">    <span class="attr">triplet_loss</span> = tf.multiply(mask, triplet_loss)</div><div class="line"></div><div class="line">    <span class="comment"># Remove negative losses (i.e. the easy triplets)</span></div><div class="line">    <span class="attr">triplet_loss</span> = tf.maximum(triplet_loss, <span class="number">0.0</span>)</div><div class="line"></div><div class="line">    <span class="comment"># Count number of positive triplets (where triplet_loss &gt; 0)</span></div><div class="line">    <span class="attr">valid_triplets</span> = tf.to_float(tf.greater(triplet_loss, <span class="number">1</span>e-<span class="number">16</span>))</div><div class="line">    <span class="attr">num_positive_triplets</span> = tf.reduce_sum(valid_triplets)</div><div class="line">    <span class="attr">num_valid_triplets</span> = tf.reduce_sum(mask)</div><div class="line">    <span class="attr">fraction_positive_triplets</span> = num_positive_triplets / (num_valid_triplets + <span class="number">1</span>e-<span class="number">16</span>)</div><div class="line"></div><div class="line">    <span class="comment"># Get final mean triplet loss over the positive valid triplets</span></div><div class="line">    <span class="attr">triplet_loss</span> = tf.reduce_sum(triplet_loss) / (num_positive_triplets + <span class="number">1</span>e-<span class="number">16</span>)</div><div class="line"></div><div class="line">    return triplet_loss, fraction_positive_triplets</div></pre></td></tr></table></figure>
+<h4 id="batch-hard的实现方式"><a href="#batch-hard的实现方式" class="headerlink" title="batch hard的实现方式"></a>batch hard的实现方式</h4><figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div></pre></td><td class="code"><pre><div class="line">def batch_hard_triplet_loss(labels, embeddings, margin, <span class="attr">squared=False):</span></div><div class="line">    <span class="string">""</span><span class="string">"Build the triplet loss over a batch of embeddings.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    For each anchor, we get the hardest positive and hardest negative to form a triplet.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    Args:</span></div><div class="line"><span class="string">        labels: labels of the batch, of size (batch_size,)</span></div><div class="line"><span class="string">        embeddings: tensor of shape (batch_size, embed_dim)</span></div><div class="line"><span class="string">        margin: margin for triplet loss</span></div><div class="line"><span class="string">        squared: Boolean. If true, output is the pairwise squared euclidean distance matrix.</span></div><div class="line"><span class="string">                 If false, output is the pairwise euclidean distance matrix.</span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">    Returns:</span></div><div class="line"><span class="string">        triplet_loss: scalar tensor containing the triplet loss</span></div><div class="line"><span class="string">    "</span><span class="string">""</span></div><div class="line">    <span class="comment"># Get the pairwise distance matrix</span></div><div class="line">    <span class="attr">pairwise_dist</span> = _pairwise_distances(embeddings, <span class="attr">squared=squared)</span></div><div class="line"></div><div class="line">    <span class="comment"># For each anchor, get the hardest positive</span></div><div class="line">    <span class="comment"># First, we need to get a mask for every valid positive (they should have same label)</span></div><div class="line">    <span class="attr">mask_anchor_positive</span> = _get_anchor_positive_triplet_mask(labels)</div><div class="line">    <span class="attr">mask_anchor_positive</span> = tf.to_float(mask_anchor_positive)</div><div class="line"></div><div class="line">    <span class="comment"># We put to 0 any element where (a, p) is not valid (valid if a != p and label(a) == label(p))</span></div><div class="line">    <span class="attr">anchor_positive_dist</span> = tf.multiply(mask_anchor_positive, pairwise_dist)</div><div class="line"></div><div class="line">    <span class="comment"># shape (batch_size, 1)</span></div><div class="line">    <span class="attr">hardest_positive_dist</span> = tf.reduce_max(anchor_positive_dist, <span class="attr">axis=1,</span> <span class="attr">keepdims=True)</span></div><div class="line"></div><div class="line">    <span class="comment"># For each anchor, get the hardest negative</span></div><div class="line">    <span class="comment"># First, we need to get a mask for every valid negative (they should have different labels)</span></div><div class="line">    <span class="attr">mask_anchor_negative</span> = _get_anchor_negative_triplet_mask(labels)</div><div class="line">    <span class="attr">mask_anchor_negative</span> = tf.to_float(mask_anchor_negative)</div><div class="line"></div><div class="line">    <span class="comment"># We add the maximum value in each row to the invalid negatives (label(a) == label(n))</span></div><div class="line">    <span class="attr">max_anchor_negative_dist</span> = tf.reduce_max(pairwise_dist, <span class="attr">axis=1,</span> <span class="attr">keepdims=True)</span></div><div class="line">    <span class="attr">anchor_negative_dist</span> = pairwise_dist + max_anchor_negative_dist * (<span class="number">1.0</span> - mask_anchor_negative)</div><div class="line"></div><div class="line">    <span class="comment"># shape (batch_size,)</span></div><div class="line">    <span class="attr">hardest_negative_dist</span> = tf.reduce_min(anchor_negative_dist, <span class="attr">axis=1,</span> <span class="attr">keepdims=True)</span></div><div class="line"></div><div class="line">    <span class="comment"># Combine biggest d(a, p) and smallest d(a, n) into final triplet loss</span></div><div class="line">    <span class="attr">triplet_loss</span> = tf.maximum(hardest_positive_dist - hardest_negative_dist + margin, <span class="number">0.0</span>)</div><div class="line"></div><div class="line">    <span class="comment"># Get final mean triplet loss</span></div><div class="line">    <span class="attr">triplet_loss</span> = tf.reduce_mean(triplet_loss)</div><div class="line"></div><div class="line">    return triplet_loss</div></pre></td></tr></table></figure>
+<p>在minist等数据集上的效果都是棒棒哒。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>triplet loss的实现不是很简单，比较tricky的地方是如何计算embedding的距离，以及怎样识别并抛弃掉invalid和easy triplet。当然，如果您使用的是tensorflow，可以直接移步至<a href="https://github.com/omoindrot/tensorflow-triplet-loss" target="_blank" rel="external">github repository</a>，有一份写好的triplet loss在等着你。。。</p>
+
+  </section>
+
+  
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'yangyangfuture'; 
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2018/04/11/triplet loss及tensorflow实现/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"fighting41love"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+ 
+</footer>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]--><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

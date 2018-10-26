@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      A Traffic Sign Recognition Classifier | Yang Yang 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Yang">
+    
+    
+
+    <meta name="description" content="Finding Lane Lines on the Road Finding Lane Lines on the Road The goals / steps of this project are the following:  Make a pipeline that finds lane lines on the road Reflect on your work in a written">
+<meta property="og:type" content="article">
+<meta property="og:title" content="A Traffic Sign Recognition Classifier | Yang Yang">
+<meta property="og:url" content="http://yoursite.com/2017/08/01/Finding Lane Lines on the Road/index.html">
+<meta property="og:site_name" content="Yang Yang">
+<meta property="og:description" content="Finding Lane Lines on the Road Finding Lane Lines on the Road The goals / steps of this project are the following:  Make a pipeline that finds lane lines on the road Reflect on your work in a written">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-b91234924f534566.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-60d4fea28d717c0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-fd46537b42be102a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-3c91d52f68845c4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-603bc13abff7cb4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-43fc657a4b172681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-05T09:37:50.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="A Traffic Sign Recognition Classifier | Yang Yang">
+<meta name="twitter:description" content="Finding Lane Lines on the Road Finding Lane Lines on the Road The goals / steps of this project are the following:  Make a pipeline that finds lane lines on the road Reflect on your work in a written">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2528310-b91234924f534566.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Yang Yang</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/home" title="" class="">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/publication" title="" class="">Publication</a></li>
+              
+                
+                <li class="navigation__item"><a href="/resume" title="" class="">Resume</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+                
+                <li class="navigation__item"><a href="/contact" title="" class="">Contact</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">A Traffic Sign Recognition Classifier</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-08-01" class="post-meta__date date">2017-08-01</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/自动驾驶/">自动驾驶</a>
+            </font>
+          
+
+          
+
+      </span>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <h1 id="Finding-Lane-Lines-on-the-Road"><a href="#Finding-Lane-Lines-on-the-Road" class="headerlink" title="Finding Lane Lines on the Road"></a><strong>Finding Lane Lines on the Road</strong></h1><hr>
+<p><strong>Finding Lane Lines on the Road</strong></p>
+<p>The goals / steps of this project are the following:</p>
+<ul>
+<li>Make a pipeline that finds lane lines on the road</li>
+<li>Reflect on your work in a written report</li>
+</ul>
+<hr>
+<h3 id="Reflection"><a href="#Reflection" class="headerlink" title="Reflection"></a>Reflection</h3><h5 id="1-Describe-your-pipeline-As-part-of-the-description-explain-how-you-modified-the-draw-lines-function"><a href="#1-Describe-your-pipeline-As-part-of-the-description-explain-how-you-modified-the-draw-lines-function" class="headerlink" title="1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function."></a>1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.</h5><p>We first import packages and load a test image. <strong>Notice that matplotlib read image as RGB, however the cv2 read the image as GBR.</strong><br><figure class="highlight xl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</div><div class="line"><span class="keyword">import</span> matplotlib.image <span class="keyword">as</span> mpimg</div><div class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</div><div class="line"><span class="keyword">import</span> cv2</div><div class="line">%matplotlib inline</div><div class="line"></div><div class="line">image = cv2.imread(<span class="string">'test.jpg'</span>)</div></pre></td></tr></table></figure></p>
+<p>The pipeline mainly contains the following steps:</p>
+<h5 id="1-Build-a-filter-to-find-the-white-and-yellow-parts"><a href="#1-Build-a-filter-to-find-the-white-and-yellow-parts" class="headerlink" title="1). Build a filter to find the white and yellow parts:"></a>1). Build a filter to find the white and yellow parts:</h5><p>The lane lines are always white and yellow. Hence, we first extract all the white and yellow parts from the image by filter_color function. We use the RGB, HSV and HLS to do that.<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">kernel_size = 5</div><div class="line">filtered_image = filter_colors(image)</div><div class="line">plt.figure()</div><div class="line">plt.imshow(filtered_image)</div></pre></td></tr></table></figure></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div></pre></td><td class="code"><pre><div class="line">def filter_colors(image):</div><div class="line"><span class="comment"># Filter the white and yellow lines in images.</span></div><div class="line"><span class="comment"># To reinforce the performance, we use both hls and hsv to find the yellow and white lines.</span></div><div class="line"></div><div class="line"><span class="comment"># white BGR</span></div><div class="line">lower_white = np.array([200, 200, 200])</div><div class="line">upper_white = np.array([255, 255, 255])</div><div class="line">white_mask = cv2.inRange(image, lower_white, upper_white)</div><div class="line">white_RGB_image = cv2.bitwise_and(image, image, mask=white_mask)</div><div class="line"></div><div class="line"><span class="comment"># yellow hsv</span></div><div class="line">hsv = cv2.cvtColor(image, cv2.COLOR_RGB2HSV)</div><div class="line">lower_yellow = np.array([90,100,100])</div><div class="line">upper_yellow = np.array([110,255,255])</div><div class="line"><span class="comment"># lower_yellow = np.array([20,100,100])</span></div><div class="line"><span class="comment"># upper_yellow = np.array([30,255,255])</span></div><div class="line"></div><div class="line">yellow_mask = cv2.inRange(hsv, lower_yellow, upper_yellow)</div><div class="line">yellow_hsv_image = cv2.bitwise_and(image, image, mask=yellow_mask)</div><div class="line"></div><div class="line">hsv_image = weighted_img(white_RGB_image, 1., yellow_hsv_image, 1., 0.)</div><div class="line"></div><div class="line">hls = cv2.cvtColor(image, cv2.COLOR_RGB2HLS)</div><div class="line"></div><div class="line"><span class="comment"># white hls</span></div><div class="line">lower = np.uint8([  0, 200,   0])</div><div class="line">upper = np.uint8([255, 255, 255])</div><div class="line"></div><div class="line">white_hls_mask = cv2.inRange(hls, lower, upper)</div><div class="line">white_hls_image = cv2.bitwise_and(image, image, mask=white_hls_mask)</div><div class="line"></div><div class="line"><span class="comment"># yellow hls</span></div><div class="line">lower = np.uint8([ 10,   0, 100])</div><div class="line">upper = np.uint8([ 40, 255, 255])</div><div class="line">yellow_hls_mask = cv2.inRange(hls, lower, upper)</div><div class="line">yellow_hls_image = cv2.bitwise_and(image, image, mask=yellow_hls_mask)</div><div class="line"></div><div class="line">hls_image = weighted_img(white_hls_image, 1., yellow_hls_image, 1., 0.)</div><div class="line"></div><div class="line">final_image = weighted_img(hls_image, 1., hsv_image, 1., 0.)</div><div class="line"></div><div class="line">return final_image</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-b91234924f534566.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Filter white and yellow parts"></p>
+<h5 id="2-Convert-image-to-grey-image-and-remove-the-noises"><a href="#2-Convert-image-to-grey-image-and-remove-the-noises" class="headerlink" title="2). Convert image to grey image and remove the noises"></a>2). Convert image to grey image and remove the noises</h5><p>cv2.GaussianBlur is used to remove the noises from the gray image. Removing the noise is very important. In the next step, we will show the differences.<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="attr">gray</span> = cv2.cvtColor(filtered_image, cv2.COLOR_RGB2GRAY)</div><div class="line"><span class="attr">blur_gray</span> = cv2.GaussianBlur(gray,(kernel_size, kernel_size),<span class="number">0</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-60d4fea28d717c0b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Convert image to grey image and remove the noises"></p>
+<h5 id="3-Canny-edges-detection"><a href="#3-Canny-edges-detection" class="headerlink" title="3). Canny edges detection"></a>3). Canny edges detection</h5><p>In this part, we use canny edges detection method to find all the lines in images. With noises, the lines make a real mess.<br>Without noises, the edges of lane line is very clear.<br><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"># Canny <span class="keyword">and</span> <span class="built_in">apply</span> on original <span class="built_in">image</span></div><div class="line"># Define our parameters <span class="keyword">for</span> Canny <span class="keyword">and</span> <span class="built_in">apply</span></div><div class="line">low_threshold = <span class="number">50</span></div><div class="line">high_threshold = <span class="number">150</span></div><div class="line"></div><div class="line"><span class="built_in">edges</span> = cv2.Canny(<span class="built_in">image</span>, low_threshold, high_threshold)</div><div class="line">plt.figure()</div><div class="line">plt.imshow(<span class="built_in">edges</span>)</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-fd46537b42be102a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Canny edges detection on original image"></p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">edges = cv2.Canny(blur_gray, low_threshold, high_threshold)</div><div class="line">plt.figure()</div><div class="line">plt.imshow(edges)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-3c91d52f68845c4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Canny edges detection on image without noise"></p>
+<h5 id="4-Region-of-interest"><a href="#4-Region-of-interest" class="headerlink" title="4). Region of interest"></a>4). Region of interest</h5><p>In the previous step, we find that most of the edges are not lane lines edges. And the lane lines edges always locate in a trapezoid. Hence, we define a trapezoid to restrict the region of interest.<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"># Next we'll create a masked edges image using cv2.fillPoly()</div><div class="line">mask = np.zeros_like(edges)   </div><div class="line">ignore_mask_color = <span class="number">255</span>  </div><div class="line"></div><div class="line"># This time we are defining a four sided polygon to mask</div><div class="line">imshape = image.shape</div><div class="line">vertices = np.array([[(imshape[<span class="number">1</span>]*<span class="number">0.15</span>,imshape[<span class="number">0</span>]*<span class="number">0.95</span>),(imshape[<span class="number">1</span>]*<span class="number">0.45</span>, imshape[<span class="number">0</span>]*<span class="number">0.6</span>), (imshape[<span class="number">1</span>]*<span class="number">0.55</span>, imshape[<span class="number">0</span>]*<span class="number">0.6</span>), (imshape[<span class="number">1</span>]*<span class="number">0.9</span>,imshape[<span class="number">0</span>]*<span class="number">0.95</span>)]], dtype=np.int32)</div><div class="line"></div><div class="line"></div><div class="line">cv2.fillPoly(mask, vertices, ignore_mask_color)</div><div class="line">masked_edges = cv2.bitwise_and(edges, mask)</div><div class="line">plt.figure()</div><div class="line">plt.imshow(masked_edges)</div></pre></td></tr></table></figure></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-603bc13abff7cb4d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Region of interest: a trapezoid"></p>
+<h5 id="5-Filter-edges-and-generate-lines-by-HoughLinesP-function"><a href="#5-Filter-edges-and-generate-lines-by-HoughLinesP-function" class="headerlink" title="5). Filter edges and generate lines by HoughLinesP function"></a>5). Filter edges and generate lines by HoughLinesP function</h5><p>Not all edges in the trapezoid are useful. We use HoughLinesP with specific parameters to remove some short and useless edges.<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Define the Hough transform parameters</span></div><div class="line"><span class="comment"># Make a blank the same size as our image to draw on</span></div><div class="line">rho = 3 <span class="comment"># distance resolution in pixels of the Hough grid</span></div><div class="line">theta = np.pi/180 <span class="comment"># angular resolution in radians of the Hough grid</span></div><div class="line">threshold = 15     <span class="comment"># minimum number of votes (intersections in Hough grid cell)</span></div><div class="line">min_line_length = 5 <span class="comment">#minimum number of pixels making up a line</span></div><div class="line">max_line_gap = 25    <span class="comment"># maximum gap in pixels between connectable line segments</span></div><div class="line">line_image = np.copy(image)*0 <span class="comment"># creating a blank to draw lines on</span></div><div class="line"></div><div class="line"><span class="comment"># Run Hough on edge detected image</span></div><div class="line"><span class="comment"># Output "lines" is an array containing endpoints of detected line segments</span></div><div class="line">lines = cv2.HoughLinesP(masked_edges, rho, theta, threshold, np.array([]),min_line_length, max_line_gap)</div></pre></td></tr></table></figure></p>
+<h5 id="6-Find-the-lane-line-related-edges"><a href="#6-Find-the-lane-line-related-edges" class="headerlink" title="6. Find the lane line related edges"></a>6. Find the lane line related edges</h5><p>We deal with the left and right lane line, separately.<br>Based on the observation, the slope of lines in left part are larger than 0.5, while the slope of lines in right part are less than -0.5.<br><figure class="highlight http"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"></div><div class="line"># Iterate over the output "lines" and draw lines on a blank image</div><div class="line">left_lane_lines_x = []</div><div class="line">left_lane_lines_y = []</div><div class="line">right_lane_lines_x = []</div><div class="line">right_lane_lines_y = []</div><div class="line"></div><div class="line">x_size = image.shape[1]</div><div class="line">y_size = image.shape[0]</div><div class="line">for line in lines:</div><div class="line">x1, y1, x2, y2 = line[0]</div><div class="line">if abs(x1-x2) == 0:</div><div class="line">slope = float("inf")</div><div class="line"><span class="attribute">else:</span></div><div class="line">slope = (y2 - y1)/(x2 - x1)</div><div class="line"></div><div class="line">if slope &gt; 0.5 and x1 &gt; x_size/2 and x2 &gt; x_size/2:</div><div class="line"><span class="attribute">right_lane_lines_x.append(x1)</span></div><div class="line"><span class="attribute">right_lane_lines_x.append(x2)</span></div><div class="line"><span class="attribute">right_lane_lines_y.append(y1)</span></div><div class="line"><span class="attribute">right_lane_lines_y.append(y2)</span></div><div class="line">elif slope &lt; -0.5 and x1 &lt; x_size/2 and x2 &lt; x_size/2:</div><div class="line"><span class="attribute">left_lane_lines_x.append(x1)</span></div><div class="line"><span class="attribute">left_lane_lines_x.append(x2)</span></div><div class="line"><span class="attribute">left_lane_lines_y.append(y1)</span></div><div class="line"><span class="attribute">left_lane_lines_y.append(y2)</span></div></pre></td></tr></table></figure></p>
+<h5 id="7-Fit-the-lane-line-and-generate-the-start-and-end-point-of-the-fitted-line"><a href="#7-Fit-the-lane-line-and-generate-the-start-and-end-point-of-the-fitted-line" class="headerlink" title="7). Fit the lane line and generate the start and end point of the fitted line"></a>7). Fit the lane line and generate the start and end point of the fitted line</h5><p>Fit the lane line with several points. Then we get the slope and bias of the line. We calculate the start and end point, and draw lines in the image.<br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">r_m, r_b = np.polyfit(right_lane_lines_x, right_lane_lines_y, 1)</div><div class="line">l_m, l_b = np.polyfit(left_lane_lines_x, left_lane_lines_y, 1)</div><div class="line"></div><div class="line">y1 = image.shape[0]</div><div class="line">y2 = image.shape[0] * (1 - 0.35)</div><div class="line"></div><div class="line"></div><div class="line">r_x1 = (y1 - r_b) / r_m</div><div class="line">r_x2 = (y2 - r_b) / r_m</div><div class="line"></div><div class="line">l_x1 = (y1 - l_b) / l_m</div><div class="line">l_x2 = (y2 - l_b) / l_m</div></pre></td></tr></table></figure></p>
+<h5 id="8-Draw-it-on-the-image"><a href="#8-Draw-it-on-the-image" class="headerlink" title="8). Draw it on the image"></a>8). Draw it on the image</h5><figure class="highlight processing"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">color</span> = [<span class="number">255</span>,<span class="number">0</span>,<span class="number">0</span>]</div><div class="line">thickness = <span class="number">10</span></div><div class="line">cv2.<span class="built_in">line</span>(<span class="built_in">image</span>, (<span class="built_in">int</span>(r_x1), y1), (<span class="built_in">int</span>(r_x2), <span class="built_in">int</span>(y2)), <span class="built_in">color</span>, thickness)</div><div class="line">cv2.<span class="built_in">line</span>(<span class="built_in">image</span>, (<span class="built_in">int</span>(l_x1), y1), (<span class="built_in">int</span>(l_x2), <span class="built_in">int</span>(y2)), <span class="built_in">color</span>, thickness)</div><div class="line"></div><div class="line">color_edges = np.dstack((edges, edges, edges)) </div><div class="line"></div><div class="line">lines_edges = cv2.addWeighted(<span class="built_in">image</span>, <span class="number">1</span>, line_image, <span class="number">1</span>, <span class="number">0</span>) </div><div class="line">plt.figure()</div><div class="line">plt.imshow(lines_edges)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-43fc657a4b172681.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="The lane line on image."></p>
+<p><strong>In order to draw a single line on the left and right lanes, I modified the draw_lines() function by the following steps:</strong></p>
+<h6 id="a-Deal-with-left-and-right-edges-separately-based-on"><a href="#a-Deal-with-left-and-right-edges-separately-based-on" class="headerlink" title="a. Deal with left and right edges separately, based on"></a>a. Deal with left and right edges separately, based on</h6><p>i. the absolute value of the slope is larger than 0.5<br>ii. the left lane edges should lie in the left part of the image; the right lane edges should lie in the right part of the image</p>
+<h6 id="b-fit-the-points-with-np-polyfit"><a href="#b-fit-the-points-with-np-polyfit" class="headerlink" title="b. fit the points with np.polyfit"></a>b. fit the points with np.polyfit</h6><h6 id="c-smooth-the-slope-and-bias-with-a-size-10-queue-The-idea-is-that-the-slope-and-bias-should-be-similar-in-the-past-10-frames-The-experimental-results-are-very-good-After-smoothing-the-slope-and-bias-the-lines-won’t-shake-like-an-earthquake"><a href="#c-smooth-the-slope-and-bias-with-a-size-10-queue-The-idea-is-that-the-slope-and-bias-should-be-similar-in-the-past-10-frames-The-experimental-results-are-very-good-After-smoothing-the-slope-and-bias-the-lines-won’t-shake-like-an-earthquake" class="headerlink" title="c. smooth the slope and bias with a size=10 queue. The idea is that the slope and bias should be similar in the past 10 frames.  The experimental results are very good. After smoothing the slope and bias, the lines won’t shake like an earthquake."></a>c. smooth the slope and bias with a size=10 queue. The idea is that the slope and bias should be similar in the past 10 frames.  The experimental results are very good. After smoothing the slope and bias, the lines won’t shake like an earthquake.</h6><figure class="highlight vim"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line">def draw_lines(img, lines, color=[<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>], thickness=<span class="number">10</span>):</div><div class="line"><span class="string">""</span><span class="comment">"</span></div><div class="line">NOTE: this <span class="keyword">is</span> the <span class="function"><span class="keyword">function</span> <span class="title">you</span> <span class="title">might</span> <span class="title">want</span> <span class="title">to</span> <span class="title">use</span> <span class="title">as</span> <span class="title">a</span> <span class="title">starting</span> <span class="title">point</span> <span class="title">once</span> <span class="title">you</span> <span class="title">want</span> <span class="title">to</span> </span></div><div class="line">average/extrapolate the <span class="built_in">line</span> segments you detect <span class="keyword">to</span> <span class="keyword">map</span> out the full</div><div class="line">extent of the lane (going from the result shown in raw-lines-example.mp4</div><div class="line"><span class="keyword">to</span> that shown in P1_example.mp4).  </div><div class="line"></div><div class="line">Think about things like separating <span class="built_in">line</span> segments by their </div><div class="line">slope ((y2-y1)/(x2-x1)) <span class="keyword">to</span> decide which segments are part of the <span class="keyword">left</span></div><div class="line"><span class="built_in">line</span> <span class="keyword">vs</span>. the <span class="keyword">right</span> <span class="built_in">line</span>.  Then, you can average the position of each of </div><div class="line">the lines <span class="built_in">and</span> extrapolate <span class="keyword">to</span> the top <span class="built_in">and</span> bottom of the lane.</div><div class="line"></div><div class="line">This <span class="function"><span class="keyword">function</span> <span class="title">draws</span> `<span class="title">lines</span>` <span class="title">with</span> `<span class="title">color</span>` <span class="title">and</span> `<span class="title">thickness</span>`.    </span></div><div class="line">Lines are drawn <span class="keyword">on</span> the image inplace (mutates the image).</div><div class="line">If you want <span class="keyword">to</span> <span class="keyword">make</span> the lines semi-transparent, think about combining</div><div class="line">this <span class="function"><span class="keyword">function</span> <span class="title">with</span> <span class="title">the</span> <span class="title">weighted_img</span><span class="params">()</span> <span class="title">function</span> <span class="title">below</span></span></div><div class="line"><span class="string">""</span><span class="comment">"</span></div><div class="line">#     <span class="keyword">for</span> <span class="built_in">line</span> in <span class="built_in">line</span><span class="variable">s:</span></div><div class="line">#         <span class="keyword">for</span> x1,y1,x2,y2 in <span class="built_in">line</span>:</div><div class="line">#             cv2.<span class="built_in">line</span>(img, (x1, y1), (x2, y2), color, thickness)</div><div class="line"></div><div class="line">left_lane_lines_x = []</div><div class="line">left_lane_lines_y = []</div><div class="line">right_lane_lines_x = []</div><div class="line">right_lane_lines_y = []</div><div class="line"></div><div class="line">x_size = img.shape[<span class="number">1</span>]</div><div class="line">y_size = img.shape[<span class="number">0</span>]</div><div class="line"><span class="keyword">for</span> <span class="built_in">line</span> in <span class="built_in">line</span><span class="variable">s:</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">len</span>(<span class="built_in">line</span>[<span class="number">0</span>])&gt;<span class="number">3</span>:</div><div class="line">x1, y1, x2, y2 = <span class="built_in">line</span>[<span class="number">0</span>]</div><div class="line"><span class="keyword">else</span>:</div><div class="line"><span class="keyword">continue</span></div><div class="line"><span class="keyword">if</span> <span class="built_in">abs</span>(x1-x2) == <span class="number">0</span>:</div><div class="line">slope = float(<span class="string">"inf"</span>)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">slope = (y2 - y1)/(x2 - x1)</div><div class="line"></div><div class="line"><span class="keyword">if</span> slope &gt; <span class="number">0.5</span> <span class="built_in">and</span> x1 &gt; x_size/<span class="number">2</span> <span class="built_in">and</span> x2 &gt; x_size/<span class="number">2</span>:</div><div class="line">right_lane_lines_x.<span class="keyword">append</span>(x1)</div><div class="line">right_lane_lines_x.<span class="keyword">append</span>(x2)</div><div class="line">right_lane_lines_y.<span class="keyword">append</span>(y1)</div><div class="line">right_lane_lines_y.<span class="keyword">append</span>(y2)</div><div class="line">elif slope &lt; -<span class="number">0.5</span> <span class="built_in">and</span> x1 &lt; x_size/<span class="number">2</span> <span class="built_in">and</span> x2 &lt; x_size/<span class="number">2</span>:</div><div class="line">left_lane_lines_x.<span class="keyword">append</span>(x1)</div><div class="line">left_lane_lines_x.<span class="keyword">append</span>(x2)</div><div class="line">left_lane_lines_y.<span class="keyword">append</span>(y1)</div><div class="line">left_lane_lines_y.<span class="keyword">append</span>(y2)</div><div class="line">right_exist = False</div><div class="line">left_exist = False</div><div class="line"><span class="keyword">if</span> right_lane_lines_x != [] <span class="built_in">and</span> right_lane_lines_y!= []:</div><div class="line">r_m, r_b = np.polyfit(right_lane_lines_x, right_lane_lines_y, <span class="number">1</span>)</div><div class="line">right_exist = True</div><div class="line"></div><div class="line"><span class="keyword">if</span> left_lane_lines_x != [] <span class="built_in">and</span> left_lane_lines_y!= []:</div><div class="line">l_m, l_b = np.polyfit(left_lane_lines_x, left_lane_lines_y, <span class="number">1</span>)</div><div class="line">left_exist = True</div><div class="line"></div><div class="line"># Smoothing the slope <span class="built_in">and</span> bias <span class="keyword">to</span> <span class="keyword">make</span> the lane <span class="built_in">line</span> detection roust.</div><div class="line"><span class="keyword">if</span> left_exis<span class="variable">t:</span></div><div class="line"><span class="keyword">if</span> left_q_m.size() &lt; <span class="number">10</span>:</div><div class="line">left_q_m.<span class="keyword">put</span>(l_m)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">left_q_m.<span class="built_in">get</span>()</div><div class="line">left_q_m.<span class="keyword">put</span>(l_m)</div><div class="line"></div><div class="line"><span class="keyword">if</span> left_q_b.size() &lt; <span class="number">10</span>:</div><div class="line">left_q_b.<span class="keyword">put</span>(l_b)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">left_q_b.<span class="built_in">get</span>()</div><div class="line">left_q_b.<span class="keyword">put</span>(l_b)</div><div class="line"></div><div class="line"><span class="keyword">if</span> right_exis<span class="variable">t:</span>      </div><div class="line"><span class="keyword">if</span> right_q_m.size() &lt; <span class="number">10</span>:</div><div class="line">right_q_m.<span class="keyword">put</span>(r_m)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">right_q_m.<span class="built_in">get</span>()</div><div class="line">right_q_m.<span class="keyword">put</span>(r_m)</div><div class="line"></div><div class="line"><span class="keyword">if</span> right_q_b.size() &lt; <span class="number">10</span>:</div><div class="line">right_q_b.<span class="keyword">put</span>(r_b)</div><div class="line"><span class="keyword">else</span>:</div><div class="line">right_q_b.<span class="built_in">get</span>()</div><div class="line">right_q_b.<span class="keyword">put</span>(r_b)</div><div class="line"></div><div class="line">r_m = right_q_m.avg()</div><div class="line">l_m = left_q_m.avg()</div><div class="line">r_b = right_q_b.avg()</div><div class="line">l_b = left_q_b.avg()</div><div class="line"></div><div class="line">y1 = img.shape[<span class="number">0</span>]</div><div class="line">y2 = img.shape[<span class="number">0</span>] * (<span class="number">1</span> - <span class="number">0.35</span>)</div><div class="line"></div><div class="line"></div><div class="line">r_x1 = (y1 - r_b) / r_m</div><div class="line">r_x2 = (y2 - r_b) / r_m</div><div class="line"></div><div class="line">l_x1 = (y1 - l_b) / l_m</div><div class="line">l_x2 = (y2 - l_b) / l_m</div><div class="line"></div><div class="line">cv2.<span class="built_in">line</span>(img, (<span class="keyword">int</span>(r_x1), y1), (<span class="keyword">int</span>(r_x2), <span class="keyword">int</span>(y2)), color, thickness)</div><div class="line">cv2.<span class="built_in">line</span>(img, (<span class="keyword">int</span>(l_x1), y1), (<span class="keyword">int</span>(l_x2), <span class="keyword">int</span>(y2)), color, thickness)</div></pre></td></tr></table></figure>
+<p>The queue is defined as follows. We can also use the class Queue in built-in functions.<br><figure class="highlight ruby"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Queue</span>:</span></div><div class="line"><span class="string">""</span><span class="string">"</span></div><div class="line"><span class="string">Define a queue class for smoothing the slope and bias of the lane line.</span></div><div class="line"><span class="string">Smoothing is necessary for this task. </span></div><div class="line"><span class="string">"</span><span class="string">""</span></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></div><div class="line"><span class="keyword">self</span>.items = []</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">isEmpty</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></div><div class="line"><span class="keyword">return</span> <span class="keyword">self</span>.items == []</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">Empty</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></div><div class="line"><span class="keyword">while</span> <span class="keyword">self</span>.isEmpty() == <span class="symbol">False:</span></div><div class="line"><span class="keyword">self</span>.items.get()</div><div class="line"><span class="keyword">return</span> <span class="keyword">self</span>.items</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(<span class="keyword">self</span>, item)</span></span><span class="symbol">:</span></div><div class="line"><span class="keyword">self</span>.items.insert(<span class="number">0</span>,item)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">avg</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></div><div class="line"><span class="keyword">return</span> np.mean(<span class="keyword">self</span>.items)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">get</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></div><div class="line"><span class="keyword">return</span> <span class="keyword">self</span>.items.pop()</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">size</span><span class="params">(<span class="keyword">self</span>)</span></span><span class="symbol">:</span></div><div class="line"><span class="keyword">return</span> len(<span class="keyword">self</span>.items)</div></pre></td></tr></table></figure></p>
+<h3 id="2-Identify-potential-shortcomings-with-your-current-pipeline"><a href="#2-Identify-potential-shortcomings-with-your-current-pipeline" class="headerlink" title="2. Identify potential shortcomings with your current pipeline"></a>2. Identify potential shortcomings with your current pipeline</h3><p>Shortcoming:<br>In the challenge.mp4, the algorithm works well on almost all the frames except frame 113 and 114. I run the pipeline on the two frames, and it works well. However, it doesn’t work well on the video. I spent 2 days to improve the performance on the two frames. Failed…</p>
+<p>Potential shortcoming:</p>
+<ol>
+<li><p>The test videos are limited. The algorithm may fail on many other situations. For instance, night, rainy, snow and sand storm.</p>
+</li>
+<li><p>Many of the parameters are fixed, which may have great limitations. As the development of machine learning, is it possible for the ML algorithm to learn these automatically?</p>
+</li>
+</ol>
+<h3 id="3-Suggest-possible-improvements-to-your-pipeline"><a href="#3-Suggest-possible-improvements-to-your-pipeline" class="headerlink" title="3. Suggest possible improvements to your pipeline"></a>3. Suggest possible improvements to your pipeline</h3><p>I really want to test the algorithm on a S-Bend road. I hope that the length of the annotated lane line is adaptive. We use the linear regression to fit the lane line. It’s more reasonable to fit the lane line as a curve.</p>
+<p>所有代码详见：<br><a href="https://github.com/fighting41love/Udacity_Lane_line_detection/blob/master/P1.ipynb" target="_blank" rel="external">https://github.com/fighting41love/Udacity_Lane_line_detection/blob/master/P1.ipynb</a></p>
+
+  </section>
+
+  
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'yangyangfuture'; 
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2017/08/01/Finding Lane Lines on the Road/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"fighting41love"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+ 
+</footer>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]--><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

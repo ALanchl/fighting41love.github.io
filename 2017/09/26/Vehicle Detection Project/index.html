@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Vehicle Detection Project | Yang Yang 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Yang">
+    
+    
+
+    <meta name="description" content="Vehicle Detection ProjectThe goals / steps of this project are the following:  Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vehicle Detection Project | Yang Yang">
+<meta property="og:url" content="http://yoursite.com/2017/09/26/Vehicle Detection Project/index.html">
+<meta property="og:site_name" content="Yang Yang">
+<meta property="og:description" content="Vehicle Detection ProjectThe goals / steps of this project are the following:  Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classi">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-a86f74bee987db90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-5d5457140c146f03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-cc5502a8116f1874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-76a5d30724b306f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-17595c3ecac7909b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-b52d1cf9e3ae901c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-2e229838cd6b1b21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-07a57ec28d1a8bbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:updated_time" content="2017-10-05T09:34:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vehicle Detection Project | Yang Yang">
+<meta name="twitter:description" content="Vehicle Detection ProjectThe goals / steps of this project are the following:  Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classi">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2528310-a86f74bee987db90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Yang Yang</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/home" title="" class="">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/publication" title="" class="">Publication</a></li>
+              
+                
+                <li class="navigation__item"><a href="/resume" title="" class="">Resume</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+                
+                <li class="navigation__item"><a href="/contact" title="" class="">Contact</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Vehicle Detection Project</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-09-26" class="post-meta__date date">2017-09-26</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/自动驾驶/">自动驾驶</a>
+            </font>
+          
+
+          
+
+      </span>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p><strong>Vehicle Detection Project</strong><br>The goals / steps of this project are the following:</p>
+<blockquote>
+<p>Perform a Histogram of Oriented Gradients (HOG) feature extraction on a labeled training set of images and train a classifier Linear SVM classifier</p>
+<p>Optionally, you can also apply a color transform and append binned color features, as well as histograms of color, to your HOG feature vector.<br>Note: for those first two steps don’t forget to normalize your features and randomize a selection for training and testing.</p>
+<p>Implement a sliding-window technique and use your trained classifier to search for vehicles in images.</p>
+<p>Run your pipeline on a video stream (start with the test_video.mp4 and later implement on full project_video.mp4) and create a heat map of recurring detections frame by frame to reject outliers and follow detected vehicles.<br>Estimate a bounding box for vehicles detected.</p>
+</blockquote>
+<h3 id="Histogram-of-Oriented-Gradients-HOG"><a href="#Histogram-of-Oriented-Gradients-HOG" class="headerlink" title="Histogram of Oriented Gradients (HOG)"></a>Histogram of Oriented Gradients (HOG)</h3><h4 id="1-Explain-how-and-identify-where-in-your-code-you-extracted-HOG-features-from-the-training-images"><a href="#1-Explain-how-and-identify-where-in-your-code-you-extracted-HOG-features-from-the-training-images" class="headerlink" title="1. Explain how (and identify where in your code) you extracted HOG features from the training images."></a>1. Explain how (and identify where in your code) you extracted HOG features from the training images.</h4><p>The code for this step is contained in the <code>Cell 14</code> of the IPython notebook . I started by reading in all the vehicle and non-vehicle images in the <code>Cell 13</code>. Here is the examples  of the vehicle and non-vehicle classes:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-a86f74bee987db90.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="Vehicle and non-vehicle images"></p>
+<p>I then explored different color spaces and different skimage.hog()<br> parameters .<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="attr">colorspace</span> = <span class="string">'RGB'</span> # Can be RGB, HSV, LUV, HLS, YUV, YCrCb</div><div class="line"><span class="attr">orient</span> = <span class="number">9</span></div><div class="line"><span class="attr">pix_per_cell</span> = <span class="number">8</span></div><div class="line"><span class="attr">cell_per_block</span> = <span class="number">2</span></div><div class="line"><span class="attr">hog_channel</span> = <span class="number">0</span> # Can be <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, or <span class="string">"ALL"</span></div></pre></td></tr></table></figure></p>
+<p>I grabbed random images from each of the two classes and displayed them to get a feel for what the skimage.hog() output looks like.<br>Here is an example using the YCrCb color space:<br><img src="http://upload-images.jianshu.io/upload_images/2528310-5d5457140c146f03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="Hog"></p>
+<p>####2. Explain how you settled on your final choice of HOG parameters.<br>I tried various combinations of parameters. The <code>YCrCb</code> is the best choice. Others can also use the <code>GRAY</code> colors pace. However, the <code>GRAY</code> which neglect the color information may loose the experimental result. I finally set the parameters in <code>Cell 17</code> as follows:<br><figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="attr">color_space</span> = <span class="string">'YCrCb'</span> # Can be RGB, HSV, LUV, HLS, YUV, YCrCb</div><div class="line"><span class="attr">orient</span> = <span class="number">9</span>  # HOG orientations</div><div class="line"><span class="attr">pix_per_cell</span> = <span class="number">8</span> # HOG pixels per cell</div><div class="line"><span class="attr">cell_per_block</span> = <span class="number">2</span> # HOG cells per block</div><div class="line"><span class="attr">hog_channel</span> = <span class="string">"ALL"</span> # Can be <span class="number">0</span>, <span class="number">1</span>, <span class="number">2</span>, or <span class="string">"ALL"</span></div><div class="line"><span class="attr">spatial_size</span> = (<span class="number">16</span>, <span class="number">16</span>) # Spatial binning dimensions</div><div class="line"><span class="attr">hist_bins</span> = <span class="number">32</span>    # Number of histogram bins</div><div class="line"><span class="attr">spatial_feat</span> = <span class="literal">True</span> # Spatial features <span class="literal">on</span> or <span class="literal">off</span></div><div class="line"><span class="attr">hist_feat</span> = <span class="literal">True</span> # Histogram features <span class="literal">on</span> or <span class="literal">off</span></div><div class="line"><span class="attr">hog_feat</span> = <span class="literal">True</span> # HOG features <span class="literal">on</span> or <span class="literal">off</span></div><div class="line"><span class="attr">visualize</span> = <span class="literal">True</span> # Visualize hog image <span class="literal">on</span> or <span class="literal">off</span></div><div class="line"><span class="attr">y_start_stop</span> = [<span class="number">400</span>, <span class="number">656</span>] # Min and max in y to search in slide_window()</div><div class="line"><span class="attr">scale</span> = <span class="number">1.5</span> # A parameter for the function finding cars</div></pre></td></tr></table></figure></p>
+<p>####3. Describe how you trained a classifier using your selected HOG features (and color features if you used them).<br>In <code>Cell 17</code>, I trained a linear SVM using the normalized HOG features. The features are first normalized as follows:</p>
+<figure class="highlight ini"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Create an array stack of feature vectors</span></div><div class="line"><span class="attr">X</span> = np.vstack((car_features, notcar_features)).astype(np.float64)                        </div><div class="line"><span class="comment"># Fit a per-column scaler</span></div><div class="line"><span class="comment"># Compute the mean and std to be used for later scaling.</span></div><div class="line"><span class="attr">X_scaler</span> = StandardScaler().fit(X)</div><div class="line"><span class="comment"># Apply the scaler to X</span></div><div class="line"><span class="comment"># Perform standardization by centering and scaling</span></div><div class="line"><span class="attr">scaled_X</span> = X_scaler.transform(X)</div><div class="line"><span class="comment"># Define the labels vector</span></div><div class="line"><span class="attr">y</span> = np.hstack((np.<span class="literal">on</span>es(len(car_features)), np.zeros(len(notcar_features))))</div></pre></td></tr></table></figure>
+<p>Then, the overall dataset is split as training and test data.<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">X_train, X_test, y_train, y_test = train_test_split(scaled_X, y, <span class="attribute">test_size</span>=0.2, <span class="attribute">random_state</span>=rand_state)</div></pre></td></tr></table></figure></p>
+<p>A linear svm model is employed to fit the training data.<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">svc </span>= LinearSVC()</div><div class="line"><span class="keyword">svc.fit(X_train, </span>y_train)</div></pre></td></tr></table></figure></p>
+<p>We predict the labels of the test samples as follows:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">svc</span><span class="selector-class">.predict</span>(<span class="selector-tag">X_test</span><span class="selector-attr">[0:n_predict]</span>)</div></pre></td></tr></table></figure></p>
+<p>The performance of the model can be evaluated as follows:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">from sklearn<span class="selector-class">.metrics</span> import accuracy_score</div><div class="line"><span class="function"><span class="title">accuracy_score</span><span class="params">(y_true, y_pred)</span></span></div><div class="line"></div><div class="line">from sklearn<span class="selector-class">.metrics</span> import confusion_matrix</div><div class="line"><span class="function"><span class="title">confusion_matrix</span><span class="params">(y_true, y_pred)</span></span></div></pre></td></tr></table></figure></p>
+<h3 id="Sliding-Window-Search"><a href="#Sliding-Window-Search" class="headerlink" title="Sliding Window Search"></a>Sliding Window Search</h3><h4 id="1-Describe-how-you-implemented-a-sliding-window-search-How-did-you-decide-what-scales-to-search-and-how-much-to-overlap-windows"><a href="#1-Describe-how-you-implemented-a-sliding-window-search-How-did-you-decide-what-scales-to-search-and-how-much-to-overlap-windows" class="headerlink" title="1. Describe how you implemented a sliding window search. How did you decide what scales to search and how much to overlap windows?"></a>1. Describe how you implemented a sliding window search. How did you decide what scales to search and how much to overlap windows?</h4><p>It’s not a good idea to search random window all over the image. I decided to search random window positions at random scales just at the bottom of the image like this: </p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-cc5502a8116f1874.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="Windows for vehicles detection"></p>
+<p>I plot the heat map of the windows.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-76a5d30724b306f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="Heat map"></p>
+<p>We have a false positive in the left part of the image. It is not a car. We try to remove the false positive using a threshold to remove the single window. </p>
+<pre><code>def apply_threshold(heatmap, threshold): # Zero out pixels below the threshold in the heatmap
+heatmap[heatmap &lt; threshold] = 0 
+return heatmap 
+heated = apply_threshold(heat_b,3)
+</code></pre><p><img src="http://upload-images.jianshu.io/upload_images/2528310-17595c3ecac7909b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="Filtered heat map"></p>
+<p>Finally, we combine the detected windows  with the previous image from camera. </p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-b52d1cf9e3ae901c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="Frame with windows"></p>
+<p>####2. Show some examples of test images to demonstrate how your pipeline is working. What did you do to optimize the performance of your classifier?<br>Ultimately I searched on two scales using YCrCb 3-channel HOG features plus spatially binned color and histograms of color in the feature vector, which provided a nice result. Here are some example images:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-2e229838cd6b1b21.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="test 1"></p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-07a57ec28d1a8bbc.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="test 2"></p>
+<h4 id="1-Provide-a-link-to-your-final-video-output-Your-pipeline-should-perform-reasonably-well-on-the-entire-project-video-Here’s-a-link-to-my-video-result"><a href="#1-Provide-a-link-to-your-final-video-output-Your-pipeline-should-perform-reasonably-well-on-the-entire-project-video-Here’s-a-link-to-my-video-result" class="headerlink" title="1. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video. Here’s a link to my video result."></a>1. Provide a link to your final video output. Your pipeline should perform reasonably well on the entire project video. Here’s a <a href="https://github.com/fighting41love/Udacity_Vehicle_Detection/blob/master/project_video_output.mp4" target="_blank" rel="external">link to my video result</a>.</h4><p>We also upload the video to <a href="">youtube</a>.</p>
+<h4 id="2-Describe-how-and-identify-where-in-your-code-you-implemented-some-kind-of-filter-for-false-positives-and-some-method-for-combining-overlapping-bounding-boxes"><a href="#2-Describe-how-and-identify-where-in-your-code-you-implemented-some-kind-of-filter-for-false-positives-and-some-method-for-combining-overlapping-bounding-boxes" class="headerlink" title="2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes."></a>2. Describe how (and identify where in your code) you implemented some kind of filter for false positives and some method for combining overlapping bounding boxes.</h4><p>I illustrate how we solve the problem in <code>Sliding Window Search</code> part. To combine the overlapping bounding boxes, we first use the min-max function to generate the boxes. Sometimes the box is too large. Hence, we write a detection class to average the box boundary.</p>
+<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><h4 id="1-Briefly-discuss-any-problems-issues-you-faced-in-your-implementation-of-this-project-Where-will-your-pipeline-likely-fail-What-could-you-do-to-make-it-more-robust"><a href="#1-Briefly-discuss-any-problems-issues-you-faced-in-your-implementation-of-this-project-Where-will-your-pipeline-likely-fail-What-could-you-do-to-make-it-more-robust" class="headerlink" title="1. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?"></a>1. Briefly discuss any problems / issues you faced in your implementation of this project. Where will your pipeline likely fail? What could you do to make it more robust?</h4><blockquote>
+<p>The boxes in the image is not solid. The box in a new frame may jump too far away from the previous frame. We smooth the boxes’ position by averaging the positions in the past 10 frames.</p>
+<p>I wonder whether we should identify the vehicles from the opposite direction. My codes sometimes can detect vehicles from the opposite direction. However, sometimes it doesn’t. </p>
+<p>Some parameters in our codes are fixed. I don’t know the model will work on some extreme weather conditions.</p>
+</blockquote>
+
+  </section>
+
+  
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'yangyangfuture'; 
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2017/09/26/Vehicle Detection Project/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"fighting41love"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+ 
+</footer>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]--><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

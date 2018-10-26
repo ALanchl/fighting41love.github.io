@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      livelossplot--深度学习工具可视化Loss,ACC等 | Yang Yang 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Yang">
+    
+    
+
+    <meta name="description" content="livelossplot 是超赞的可视化工具，在训练过程中实时显示loss及acc等值，效果很不错。对keras和pytorch友好，tensorflow,mxnet没试过，应该也不错。 A live training loss plot in Jupyter Notebook for Keras, PyTorch and other frameworks. An open source Pyth">
+<meta property="og:type" content="article">
+<meta property="og:title" content="livelossplot--深度学习工具可视化Loss,ACC等 | Yang Yang">
+<meta property="og:url" content="http://yoursite.com/2018/04/09/livelossplt/index.html">
+<meta property="og:site_name" content="Yang Yang">
+<meta property="og:description" content="livelossplot 是超赞的可视化工具，在训练过程中实时显示loss及acc等值，效果很不错。对keras和pytorch友好，tensorflow,mxnet没试过，应该也不错。 A live training loss plot in Jupyter Notebook for Keras, PyTorch and other frameworks. An open source Pyth">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/04/09/livelossplt/livelossplot.gif">
+<meta property="og:updated_time" content="2018-04-10T15:03:13.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="livelossplot--深度学习工具可视化Loss,ACC等 | Yang Yang">
+<meta name="twitter:description" content="livelossplot 是超赞的可视化工具，在训练过程中实时显示loss及acc等值，效果很不错。对keras和pytorch友好，tensorflow,mxnet没试过，应该也不错。 A live training loss plot in Jupyter Notebook for Keras, PyTorch and other frameworks. An open source Pyth">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/09/livelossplt/livelossplot.gif">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Yang Yang</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/home" title="" class="">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/publication" title="" class="">Publication</a></li>
+              
+                
+                <li class="navigation__item"><a href="/resume" title="" class="">Resume</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+                
+                <li class="navigation__item"><a href="/contact" title="" class="">Contact</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">livelossplot--深度学习工具可视化Loss,ACC等</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-04-09" class="post-meta__date date">2018-04-09</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/深度学习/">深度学习</a>
+            </font>
+          
+
+          
+
+      </span>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>livelossplot 是超赞的可视化工具，在训练过程中实时显示<br>loss及acc等值，效果很不错。<br>对keras和pytorch友好，tensorflow,mxnet没试过，应该也不错。</p>
+<p>A live training loss plot in <a href="http://jupyter.org/" target="_blank" rel="external">Jupyter Notebook</a> for <a href="https://keras.io/" target="_blank" rel="external">Keras</a>, <a href="http://pytorch.org/" target="_blank" rel="external">PyTorch</a> and other frameworks. An open source Python package by <a href="http://p.migdal.pl/" target="_blank" rel="external">Piotr Migdał</a>.</p>
+<figure class="highlight nix"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from livelossplot <span class="built_in">import</span> PlotLossesKeras</div><div class="line"></div><div class="line">model.fit(X_train, Y_train,</div><div class="line">          <span class="attr">epochs=10,</span></div><div class="line">          <span class="attr">validation_data=(X_test,</span> Y_test),</div><div class="line">          <span class="attr">callbacks=[PlotLossesKeras()],</span></div><div class="line">          <span class="attr">verbose=0)</span></div></pre></td></tr></table></figure>
+<p><img src="livelossplot.gif" alt=""></p>
+<p>So remember, <a href="https://twitter.com/pmigdal/status/943764924983017473" target="_blank" rel="external">log your loss</a>!</p>
+<ul>
+<li>(The most FA)Q: Why not TensorBoard?</li>
+<li>A: Jupyter Notebook compability (for exploration and teaching). Simplicity of use.</li>
+</ul>
+<h2 id="Installation"><a href="#Installation" class="headerlink" title="Installation"></a>Installation</h2><p>To install <a href="https://pypi.python.org/pypi/livelossplot/" target="_blank" rel="external">this verson from PyPI</a>, type:</p>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip <span class="keyword">install</span> livelossplot</div></pre></td></tr></table></figure>
+<p>To get the newest one from this repo (note that we are in the alpha stage, so there may be frequent updates), type:</p>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip install git+git:<span class="regexp">//gi</span>thub.com<span class="regexp">/stared/</span>livelossplot.git</div></pre></td></tr></table></figure>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>Look at notebook files with full working examples:</p>
+<ul>
+<li><a href="https://github.com/stared/livelossplot/blob/master/keras_example.ipynb" target="_blank" rel="external">keras_example.ipynb</a> - a Keras callback</li>
+<li><a href="https://github.com/stared/livelossplot/blob/master/minimal_example.ipynb" target="_blank" rel="external">minimal_example.ipynb</a> - a bare API, to use anyware</li>
+<li><a href="https://github.com/stared/livelossplot/blob/master/pytorch_example.ipynb" target="_blank" rel="external">pytorch_example.ipynb</a> - a bare API, as applied to PyTorch</li>
+</ul>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>Text logs are easy, but it’s easy to miss the most crucial information: is it learning, doing nothing or overfitting?</p>
+<p>Visual feedback allows us to keep track of the training proces. Now there is one for Jupyter.</p>
+<p>If you want to get serious - use <a href="https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard" target="_blank" rel="external">TensorBoard</a> or even better - <a href="https://neptune.ml/" target="_blank" rel="external">Neptune - Machine Learning Lab</a> (as it allows to compare between models, in a Kaggle leaderboard style).</p>
+<p>But what if you just want to train a small model in Jupyter Notebook? Here is a way to do so, using <code>livelossplot</code> as a plug&amp;play component.</p>
+<p>It started as <a href="https://gist.github.com/stared/dfb4dfaf6d9a8501cd1cc8b8cb806d2e" target="_blank" rel="external">this gist</a>. Since it went popular, I decided to rewrite it as a package.</p>
+<h2 id="To-do"><a href="#To-do" class="headerlink" title="To do"></a>To do</h2><ul>
+<li>Add <a href="https://bokeh.pydata.org/" target="_blank" rel="external">Bokeh</a> backend</li>
+<li>History saving</li>
+<li>Add connectors to Tensorboard and Neptune</li>
+</ul>
+<p>If you want more functionality - open an Issue or even better - prepare a Pull Request.</p>
+
+  </section>
+
+  
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'yangyangfuture'; 
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2018/04/09/livelossplt/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"fighting41love"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+ 
+</footer>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]--><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

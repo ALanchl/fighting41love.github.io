@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      评论归纳 | Yang Yang 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Yang">
+    
+    
+
+    <meta name="description" content="京东、淘宝等商品页面都有如下标签： 这些标签描述了商品的主要特征，方便用户快速了解商品特性，带来了很好的用户体验。jd和淘宝商品众多，这些标签并不是人工编写的，而是采用评论归纳技术实现的。下面就探讨一下评论归纳的流程和使用到的技术，仅仅是探讨。 流程：  数据清洗：去除低质量的评论，纠正错别字，加标点，繁体简体转换。 构建商品评价三元组： 三元组去重：homepod价格高，homepod很贵，ho">
+<meta property="og:type" content="article">
+<meta property="og:title" content="评论归纳 | Yang Yang">
+<meta property="og:url" content="http://yoursite.com/2018/04/28/评论归纳/index.html">
+<meta property="og:site_name" content="Yang Yang">
+<meta property="og:description" content="京东、淘宝等商品页面都有如下标签： 这些标签描述了商品的主要特征，方便用户快速了解商品特性，带来了很好的用户体验。jd和淘宝商品众多，这些标签并不是人工编写的，而是采用评论归纳技术实现的。下面就探讨一下评论归纳的流程和使用到的技术，仅仅是探讨。 流程：  数据清洗：去除低质量的评论，纠正错别字，加标点，繁体简体转换。 构建商品评价三元组： 三元组去重：homepod价格高，homepod很贵，ho">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/04/28/评论归纳/assets/评论归纳-879d87f4.png">
+<meta property="og:updated_time" content="2018-05-04T06:28:17.758Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="评论归纳 | Yang Yang">
+<meta name="twitter:description" content="京东、淘宝等商品页面都有如下标签： 这些标签描述了商品的主要特征，方便用户快速了解商品特性，带来了很好的用户体验。jd和淘宝商品众多，这些标签并不是人工编写的，而是采用评论归纳技术实现的。下面就探讨一下评论归纳的流程和使用到的技术，仅仅是探讨。 流程：  数据清洗：去除低质量的评论，纠正错别字，加标点，繁体简体转换。 构建商品评价三元组： 三元组去重：homepod价格高，homepod很贵，ho">
+<meta name="twitter:image" content="http://yoursite.com/2018/04/28/评论归纳/assets/评论归纳-879d87f4.png">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Yang Yang</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/home" title="" class="">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/publication" title="" class="">Publication</a></li>
+              
+                
+                <li class="navigation__item"><a href="/resume" title="" class="">Resume</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+                
+                <li class="navigation__item"><a href="/contact" title="" class="">Contact</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">评论归纳</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2018-04-28" class="post-meta__date date">2018-04-28</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/自然语言处理/">自然语言处理</a>
+            </font>
+          
+
+          
+
+      </span>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <p>京东、淘宝等商品页面都有如下标签：<br><img src="assets/评论归纳-879d87f4.png" alt="商品评论总结"></p>
+<p>这些标签描述了商品的主要特征，方便用户快速了解商品特性，带来了很好的用户体验。jd和淘宝商品众多，这些标签并不是人工编写的，而是采用评论归纳技术实现的。下面就探讨一下评论归纳的流程和使用到的技术，仅仅是探讨。</p>
+<p>流程：</p>
+<ol>
+<li>数据清洗：去除低质量的评论，纠正错别字，加标点，繁体简体转换。</li>
+<li>构建商品评价三元组：<subject, attribute,="" adj=""></subject,></li>
+<li>三元组去重：homepod价格高，homepod很贵，homepod不便宜，表达的是同样的意思，可以统一合并为“价格高”。</li>
+<li>代表标签选择及排序: （1）呈现给用户关心的评价（2）评价差的标签尽量少显示，因为会减销量，所以标签的选择和排序也很关键。</li>
+</ol>
+<p>这个过程看似简单，每一部分都值得深入研究。下面针对上述每一个步骤进行探讨：</p>
+<ol>
+<li>数据清洗<br>（1）如何评价评论质量？<br> a. 长度： 比较长的评论大概率质量较高<br> b. 词汇： 词汇较多的评论信息量较大，大概率具有较高的质量<br> c. 常见的垃圾、粘贴的评论<br> d. 去除明显重复的评论–文本相似度<br> e. 文本的信息熵，互信息<br>（2）文本纠错 – query correction里用的技术也差不多吧<br>主题思路：将单词与数据库中现有常见关键字进行模糊匹配, 挑选匹配度最高的一个或几个建议给用户<br> a.错别字纠错：<a href="https://github.com/apanly/proofreadv1" target="_blank" rel="external">https://github.com/apanly/proofreadv1</a><br> <a href="https://github.com/PengheLiu/Cn_Speck_Checker" target="_blank" rel="external">https://github.com/PengheLiu/Cn_Speck_Checker</a><br> <a href="https://github.com/ccheng16/correction" target="_blank" rel="external">https://github.com/ccheng16/correction</a><br> <a href="https://github.com/Samurais/corrector" target="_blank" rel="external">https://github.com/Samurais/corrector</a> –不要用，作者copy别人的package，已弃坑<br> <a href="https://github.com/shibing624/pycorrector" target="_blank" rel="external">https://github.com/shibing624/pycorrector</a> –墙裂推荐的<br> b.拼音转汉字：数目估计很少，可以暂时不做<br> c.语法纠错：比较难做，要做句法依存树，目前工程上还不成熟<br> <a href="https://my.oschina.net/keyven/blog/516808" target="_blank" rel="external">https://my.oschina.net/keyven/blog/516808</a><br>（3）繁体简体转换</li>
+<li><p>构建三元组<br>（1）对于某个子领域，如汽车之家等网站，商品单一，完全可以人工穷举上述三元组，然后运用文本聚类或相似性的方法对评论短句进行归类，统计高频三元组即可。<br>（2）对于jd和淘宝等商品众多的网站，穷举是不可能了。这时就需要使用词法、句法分析来定位三元组，句法分析可以用于三元组的筛选，这种筛选方法远远不够，还需要cocurrence等方面的信息如word2vec,pmi等技术，一方面消除冗余，一方面可以去掉不常见或错误的搭配。</p>
+</li>
+<li><p>去重&amp;去除错误搭配：<br>（1）同义词词典<br>（2）word2vec</p>
+</li>
+</ol>
+<p>（3）LDA短语级词聚类<br>（4）词语搭配二元组数据：中文词语搭配库(SogouR)–<a href="http://www.sogou.com/labs/resource/r.php" target="_blank" rel="external">http://www.sogou.com/labs/resource/r.php</a></p>
+<ol>
+<li>标签选择及排序<br>频率<br>情感分析<br>（3）k-means<br>（4）LDA</li>
+</ol>
+<p></p>
+
+  </section>
+
+  
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'yangyangfuture'; 
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2018/04/28/评论归纳/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"fighting41love"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+ 
+</footer>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]--><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

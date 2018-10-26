@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      Vehicle Detection Project | Yang Yang 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Yang">
+    
+    
+
+    <meta name="description" content="Advanced Lane Finding Project The goals / steps of this project are the following:  Compute the camera calibration matrix and distortion coefficients given a set of chessboard images. Apply a distort">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vehicle Detection Project | Yang Yang">
+<meta property="og:url" content="http://yoursite.com/2017/09/19/Advanced Lane Line Detection/index.html">
+<meta property="og:site_name" content="Yang Yang">
+<meta property="og:description" content="Advanced Lane Finding Project The goals / steps of this project are the following:  Compute the camera calibration matrix and distortion coefficients given a set of chessboard images. Apply a distort">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-5e2941a1dead8b1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-f2acbe8a31d95998.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-24508277b2fdd892.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-601ad2c2e23bc018.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-9ade7ee11543098b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-93077b33a80e8c2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-46e73c9170f07039.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2480">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-e8fc6f466322d28c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:image" content="http://upload-images.jianshu.io/upload_images/2528310-b31e2ebf02bf512f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240">
+<meta property="og:updated_time" content="2017-10-05T09:35:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vehicle Detection Project | Yang Yang">
+<meta name="twitter:description" content="Advanced Lane Finding Project The goals / steps of this project are the following:  Compute the camera calibration matrix and distortion coefficients given a set of chessboard images. Apply a distort">
+<meta name="twitter:image" content="http://upload-images.jianshu.io/upload_images/2528310-5e2941a1dead8b1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Yang Yang</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/home" title="" class="">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/publication" title="" class="">Publication</a></li>
+              
+                
+                <li class="navigation__item"><a href="/resume" title="" class="">Resume</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+                
+                <li class="navigation__item"><a href="/contact" title="" class="">Contact</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">Vehicle Detection Project</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2017-09-19" class="post-meta__date date">2017-09-19</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/自动驾驶/">自动驾驶</a>
+            </font>
+          
+
+          
+
+      </span>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <hr>
+<p><strong>Advanced Lane Finding Project</strong></p>
+<p>The goals / steps of this project are the following:</p>
+<ul>
+<li>Compute the camera calibration matrix and distortion coefficients given a set of chessboard images.</li>
+<li>Apply a distortion correction to raw images.</li>
+<li>Use color transforms, gradients, etc., to create a thresholded binary image.</li>
+<li>Apply a perspective transform to rectify binary image (“birds-eye view”).</li>
+<li>Detect lane pixels and fit to find the lane boundary.</li>
+<li>Determine the curvature of the lane and vehicle position with respect to center.</li>
+<li>Warp the detected lane boundaries back onto the original image.</li>
+<li>Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.</li>
+</ul>
+<h2 id="Rubric-Points"><a href="#Rubric-Points" class="headerlink" title="Rubric Points"></a><a href="https://review.udacity.com/#!/rubrics/571/view" target="_blank" rel="external">Rubric</a> Points</h2><hr>
+<h3 id="Writeup-README"><a href="#Writeup-README" class="headerlink" title="Writeup / README"></a>Writeup / README</h3><h3 id="Camera-Calibration"><a href="#Camera-Calibration" class="headerlink" title="Camera Calibration"></a>Camera Calibration</h3><h4 id="1-Briefly-state-how-you-computed-the-camera-matrix-and-distortion-coefficients-Provide-an-example-of-a-distortion-corrected-calibration-image"><a href="#1-Briefly-state-how-you-computed-the-camera-matrix-and-distortion-coefficients-Provide-an-example-of-a-distortion-corrected-calibration-image" class="headerlink" title="1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image."></a>1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.</h4><p>a. convert image format to grayscale<br>b. cv2.findChessboardCorners() to find the corners in images<br>c. cv.2.calibrateCamera to calibrate the image<br>d. cv2.undistort() to undistort the image</p>
+<p>The code for this step is contained in the <code>Cell 293</code> code cell of the IPython notebook located in <code>Advanced Lane Line Detection.ipynb</code> .  </p>
+<p>I start by preparing “object points”, which will be the (x, y, z) coordinates of the chessboard corners in the world. Here I am assuming the chessboard is fixed on the (x, y) plane at z=0, such that the object points are the same for each calibration image.  Thus, <code>objp</code> is just a replicated array of coordinates, and <code>objpoints</code> will be appended with a copy of it every time I successfully detect all chessboard corners in a test image.  <code>imgpoints</code> will be appended with the (x, y) pixel position of each of the corners in the image plane with each successful chessboard detection.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">images = glob.glob(<span class="string">'camera_cal/calibration*.jpg'</span>)</div><div class="line">count = <span class="number">1</span></div><div class="line">fig = plt.figure(figsize=(<span class="number">20</span>, <span class="number">15</span>))</div><div class="line">mtx = []</div><div class="line">dist = []</div><div class="line">objpoints = [] <span class="comment"># 3d points in real world space</span></div><div class="line">imgpoints = [] <span class="comment"># 2d points in image plane.</span></div><div class="line"></div><div class="line"><span class="keyword">for</span> img_dir <span class="keyword">in</span> images:</div><div class="line">img = cv2.imread(img_dir)</div><div class="line">gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)</div><div class="line">ret, corners = cv2.findChessboardCorners(gray, (cx,cy), <span class="keyword">None</span>)</div><div class="line"><span class="keyword">if</span> ret == <span class="keyword">True</span>:</div><div class="line">objpoints.append(objp)</div><div class="line">imgpoints.append(corners)</div><div class="line">img = cv2.drawChessboardCorners(img, (cx,cy), corners, ret)</div><div class="line">fig.add_subplot(<span class="number">4</span>,<span class="number">5</span>,count)</div><div class="line">count += <span class="number">1</span></div><div class="line">plt.imshow(img)</div></pre></td></tr></table></figure></p>
+<p>I then used the output <code>objpoints</code> and <code>imgpoints</code> to compute the camera calibration and distortion coefficients using the <code>cv2.calibrateCamera()</code> function.  I applied this distortion correction to the test image using the <code>cv2.undistort()</code> function and obtained this result: </p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-5e2941a1dead8b1c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/720" alt="Calibrate Camera &amp; Undistort"><br>The codes are as follows:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">images = glob.glob(<span class="string">'camera_cal/calibration*.jpg'</span>)</div><div class="line">fig, (ax1, ax2)  = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">24</span>, <span class="number">9</span>))</div><div class="line">fig.tight_layout()</div><div class="line">img = cv2.imread(images[<span class="number">0</span>])</div><div class="line">fig.add_subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</div><div class="line">ax1.set_title(<span class="string">'Before'</span>, fontsize=<span class="number">50</span>)</div><div class="line">plt.imshow(img)</div><div class="line">ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray.shape[::<span class="number">-1</span>], <span class="keyword">None</span>, <span class="keyword">None</span>)</div><div class="line">dst = cv2.undistort(img, mtx, dist, <span class="keyword">None</span>, mtx)</div><div class="line">fig.add_subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">ax2.set_title(<span class="string">'After'</span>, fontsize=<span class="number">50</span>)</div><div class="line">plt.imshow(dst)</div></pre></td></tr></table></figure></p>
+<h3 id="Pipeline-single-images"><a href="#Pipeline-single-images" class="headerlink" title="Pipeline (single images)"></a>Pipeline (single images)</h3><h4 id="1-Provide-an-example-of-a-distortion-corrected-image"><a href="#1-Provide-an-example-of-a-distortion-corrected-image" class="headerlink" title="1. Provide an example of a distortion-corrected image."></a>1. Provide an example of a distortion-corrected image.</h4><p>To demonstrate this step, I will describe how I apply the distortion correction to one of the test images like this one:<br><img src="http://upload-images.jianshu.io/upload_images/2528310-f2acbe8a31d95998.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860" alt="distortion-corrected image"></p>
+<p>The codes are as follows:<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">images = glob.glob(<span class="string">'test_images/test3.jpg'</span>)</div><div class="line">fig, (ax1, ax2)  = plt.subplots(<span class="number">1</span>, <span class="number">2</span>, figsize=(<span class="number">24</span>, <span class="number">9</span>))</div><div class="line">fig.tight_layout()</div><div class="line"><span class="selector-tag">img</span> = plt.imread(images[<span class="number">0</span>])</div><div class="line">fig.add_subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">1</span>)</div><div class="line">ax1.set_title(<span class="string">'Before'</span>, fontsize=<span class="number">50</span>)</div><div class="line">plt.imshow(img)</div><div class="line">ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objpoints, imgpoints, gray<span class="selector-class">.shape</span>[::-<span class="number">1</span>], None, None)</div><div class="line">dst = cv2.undistort(<span class="selector-tag">img</span>, mtx, dist, None, mtx)</div><div class="line">fig.add_subplot(<span class="number">1</span>,<span class="number">2</span>,<span class="number">2</span>)</div><div class="line">ax2.set_title(<span class="string">'After'</span>, fontsize=<span class="number">50</span>)</div><div class="line">plt.imshow(dst)</div></pre></td></tr></table></figure></p>
+<h4 id="2-Describe-how-you-used-color-transforms-Cell-622-621-620-gradients-Cell-297-622-to-create-a-thresholded-binary-image-Provide-an-example-of-a-binary-image-result"><a href="#2-Describe-how-you-used-color-transforms-Cell-622-621-620-gradients-Cell-297-622-to-create-a-thresholded-binary-image-Provide-an-example-of-a-binary-image-result" class="headerlink" title="2. Describe how you used color transforms Cell 622, 621, 620, gradients Cell 297, 622 to create a thresholded binary image.  Provide an example of a binary image result."></a>2. Describe how you used color transforms <code>Cell 622, 621, 620</code>, gradients <code>Cell 297, 622</code> to create a thresholded binary image.  Provide an example of a binary image result.</h4><p>I used a combination of color (HLS, HSV, Lab) and gradient thresholds to generate a binary image (thresholding steps at (Cell 622, 621, 620),).  Here’s an example of my output for this step.<br>a. absolute sobel operator in both x and y dimension<br>b. gradient sobel operator for x and y dimension<br>c. use the specific channels in HLS, HSV, Lab format to remove noises (such as shaddow) and detect white and yellow lane lines<br>d. Combine all the above results together and generate the binary image</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-24508277b2fdd892.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860" alt="A binary image"></p>
+<h4 id="3-Describe-how-and-identify-where-in-your-code-you-performed-a-perspective-transform-and-provide-an-example-of-a-transformed-image"><a href="#3-Describe-how-and-identify-where-in-your-code-you-performed-a-perspective-transform-and-provide-an-example-of-a-transformed-image" class="headerlink" title="3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image."></a>3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.</h4><p>The code for my perspective transform includes a function called <code>warp()</code>, which appears in Cell 626 of the IPython notebook).  The <code>warp()</code> function takes as inputs an image (<code>img</code>), as well as source (<code>src</code>) and destination (<code>dst</code>) points.  I chose the hardcode the source and destination points in the following manner:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">leftupperpoint  = [<span class="number">568</span>,<span class="number">470</span>]</div><div class="line">rightupperpoint = [<span class="number">717</span>,<span class="number">470</span>]</div><div class="line">leftlowerpoint  = [<span class="number">260</span>,<span class="number">680</span>]</div><div class="line">rightlowerpoint = [<span class="number">1043</span>,<span class="number">680</span>]</div><div class="line"></div><div class="line">src = np.float32([leftupperpoint, leftlowerpoint, rightupperpoint, rightlowerpoint])</div><div class="line">dst = np.float32([[<span class="number">200</span>,<span class="number">0</span>], [<span class="number">200</span>,<span class="number">680</span>], [<span class="number">1000</span>,<span class="number">0</span>], [<span class="number">1000</span>,<span class="number">680</span>]])</div></pre></td></tr></table></figure>
+<p>This resulted in the following source and destination points:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Source</th>
+<th style="text-align:center">Destination</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">568,470</td>
+<td style="text-align:center">200, 0</td>
+</tr>
+<tr>
+<td style="text-align:center">260,680</td>
+<td style="text-align:center">200, 680</td>
+</tr>
+<tr>
+<td style="text-align:center">1043,680</td>
+<td style="text-align:center">1000, 680</td>
+</tr>
+<tr>
+<td style="text-align:center">717,470</td>
+<td style="text-align:center">1000, 0</td>
+</tr>
+</tbody>
+</table>
+<p>Then, I use the cv2.getPerspectiveTransform(source, destination) to generate the perspective transform matrix.  Finally, the cv2.warpPerspective is employed to warp the image.</p>
+<p>I verified that my perspective transform was working as expected by drawing the <code>src</code> and <code>dst</code> points onto a test image and its warped counterpart to verify that the lines appear parallel in the warped image.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-601ad2c2e23bc018.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/480" alt="Perspective transform"></p>
+<h4 id="4-Describe-how-you-identified-lane-line-pixels-and-fit-their-positions-with-a-polynomial"><a href="#4-Describe-how-you-identified-lane-line-pixels-and-fit-their-positions-with-a-polynomial" class="headerlink" title="4. Describe how you identified lane-line pixels and fit their positions with a polynomial?"></a>4. Describe how you identified lane-line pixels and fit their positions with a polynomial?</h4><p>As shown in <code>Cell 629</code> in  <code>Advanced Lane Line Detection.ipynb</code>,  I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:</p>
+<p>How to identify the lane line correctly in the above image? We first draw the histogram of the lane line. The two peaks in the histogram corresponds to the left and right lines. Then we use 10 sliding windows to go through the image to identify the right position of the lane line. Finally, a second order polynomial function is used to fit the points that we detect. </p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">histogram = np.sum(dst[int(img.shape[<span class="number">0</span>]/<span class="number">2</span>):,:], axis=<span class="number">0</span>)</div><div class="line">plt.plot(histogram)</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-9ade7ee11543098b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860" alt="Histogram of the lane line"><br><img src="http://upload-images.jianshu.io/upload_images/2528310-93077b33a80e8c2e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/860" alt="Fit 2nd order curve"></p>
+<p>In addition, we use a Queue (size = 10) to smooth the curves that we detect. In some cases, the camera may not detect lane lines. With a queue, the car may keep on the track according to the information in previous frames.</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-46e73c9170f07039.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/2480" alt="Windows for lane line detection"></p>
+<h4 id="5-Describe-how-you-calculated-the-radius-of-curvature-of-the-lane-and-the-position-of-the-vehicle-with-respect-to-center"><a href="#5-Describe-how-you-calculated-the-radius-of-curvature-of-the-lane-and-the-position-of-the-vehicle-with-respect-to-center" class="headerlink" title="5. Describe how you calculated the radius of curvature of the lane and the position of the vehicle with respect to center."></a>5. Describe how you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.</h4><p>I did this in <code>Cell 591</code> in my code in <code>Advanced Lane Line Detection.ipynb</code>.<br>a. Use the Radius of Curvature to get the curvature for left and right lane lines, respectively<br>b. Calculate the relation between pixes and meters. As the US high way specifications. 700 pixes vs 3.7 meters.<br>c. According to the points, we can calculate the offset for both left and right lane lines. The average of the both lane line position minus the center of the lane line is used to evaluate whether the detected lane line is corrected. We mark the radius of curvature and position of the vehicle with respect to center in the video.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculate_curvature</span><span class="params">(leftx, rightx, lefty, righty)</span>:</span></div><div class="line"><span class="string">'''Calculate the radius of curvature in meters'''</span></div><div class="line"></div><div class="line"><span class="comment"># Define y-value where we want radius of curvature</span></div><div class="line"><span class="comment"># I'll choose the maximum y-value, corresponding to the bottom of the image</span></div><div class="line"><span class="comment">#y_eval = np.max(ploty)</span></div><div class="line">y_eval = <span class="number">719</span></div><div class="line"><span class="comment"># Define conversions in x and y from pixels space to meters</span></div><div class="line">ym_per_pix = <span class="number">30</span>/<span class="number">720</span> <span class="comment"># meters per pixel in y dimension</span></div><div class="line">xm_per_pix = <span class="number">3.7</span>/<span class="number">700</span> <span class="comment"># meters per pixel in x dimension</span></div><div class="line"></div><div class="line"><span class="comment"># Fit new polynomials to x,y in world space</span></div><div class="line">left_fit_cr = np.polyfit(lefty*ym_per_pix, leftx*xm_per_pix, <span class="number">2</span>)</div><div class="line">right_fit_cr = np.polyfit(righty*ym_per_pix, rightx*xm_per_pix, <span class="number">2</span>)</div><div class="line"><span class="comment"># Calculate the new radii of curvature</span></div><div class="line">left_curverad = ((<span class="number">1</span> + (<span class="number">2</span>*left_fit_cr[<span class="number">0</span>]*y_eval*ym_per_pix + left_fit_cr[<span class="number">1</span>])**<span class="number">2</span>)**<span class="number">1.5</span>) / np.absolute(<span class="number">2</span>*left_fit_cr[<span class="number">0</span>])</div><div class="line">right_curverad = ((<span class="number">1</span> + (<span class="number">2</span>*right_fit_cr[<span class="number">0</span>]*y_eval*ym_per_pix + right_fit_cr[<span class="number">1</span>])**<span class="number">2</span>)**<span class="number">1.5</span>) / np.absolute(<span class="number">2</span>*right_fit_cr[<span class="number">0</span>])</div><div class="line"><span class="comment"># Now our radius of curvature is in meters</span></div><div class="line"></div><div class="line"><span class="keyword">return</span> left_curverad, right_curverad</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">calculate_offset</span><span class="params">(undist, left_fit, right_fit)</span>:</span></div><div class="line"><span class="string">'''Calculate the offset of the lane center from the center of the image'''</span></div><div class="line"></div><div class="line">xm_per_pix = <span class="number">3.7</span>/<span class="number">700</span> <span class="comment"># meters per pixel in x dimension</span></div><div class="line">ploty = undist.shape[<span class="number">0</span>]<span class="number">-1</span> <span class="comment"># height</span></div><div class="line">left_fitx = left_fit[<span class="number">0</span>]*ploty**<span class="number">2</span> + left_fit[<span class="number">1</span>]*ploty + left_fit[<span class="number">2</span>]</div><div class="line">right_fitx = right_fit[<span class="number">0</span>]*ploty**<span class="number">2</span> + right_fit[<span class="number">1</span>]*ploty + right_fit[<span class="number">2</span>]</div><div class="line"></div><div class="line">offset = (left_fitx+right_fitx)/<span class="number">2</span> - undist.shape[<span class="number">1</span>]/<span class="number">2</span> <span class="comment"># width</span></div><div class="line">offset = xm_per_pix*offset</div><div class="line"></div><div class="line"><span class="keyword">return</span> offset</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-e8fc6f466322d28c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Test image on the road"></p>
+<h4 id="6-Provide-an-example-image-of-your-result-plotted-back-down-onto-the-road-such-that-the-lane-area-is-identified-clearly"><a href="#6-Provide-an-example-image-of-your-result-plotted-back-down-onto-the-road-such-that-the-lane-area-is-identified-clearly" class="headerlink" title="6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly."></a>6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.</h4><p>I implemented this step in <code>Cell  636</code> in my code in <code>Advanced Lane Line Detection.ipynb</code>.  Here is an example of my result on a test image:</p>
+<p><img src="http://upload-images.jianshu.io/upload_images/2528310-b31e2ebf02bf512f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="Lane Line detection"><br><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div></pre></td><td class="code"><pre><div class="line">from moviepy.editor import VideoFileClip</div><div class="line">from IPython.display import HTML</div><div class="line">global left </div><div class="line">left = Queue()</div><div class="line">global right </div><div class="line">right = Queue()</div><div class="line"></div><div class="line">global left_pre_avg </div><div class="line">left_pre_avg = 0</div><div class="line">global right_pre_avg</div><div class="line">right_pre_avg = 0</div><div class="line">def process_frame(img):</div><div class="line"></div><div class="line">undist = cv2.undistort(img, mtx, dist, None, mtx)</div><div class="line"></div><div class="line">combined_binary = combined(undist)</div><div class="line">warped, minv = warp(combined_binary)</div><div class="line"></div><div class="line">warp_zero = np.zeros_like(warped).astype(np.uint8)</div><div class="line">color_warp = np.dstack((warp_zero, warp_zero, warp_zero))</div><div class="line"></div><div class="line">left_fitx, right_fitx, plot_y, curve_pickle = fit_line(combined_binary)</div><div class="line"></div><div class="line"><span class="comment"># Smooth the curve line</span></div><div class="line">global left_pre_avg</div><div class="line">if left_pre_avg == 0:</div><div class="line">left_pre_avg = np.mean(left_fitx)</div><div class="line">right_pre_avg = np.mean(right_fitx)</div><div class="line">if left.size()&lt;=10:</div><div class="line">left.put(left_fitx)</div><div class="line">right.put(right_fitx)</div><div class="line">elif abs(np.mean(left_fitx)-left_pre_avg)&lt;10:</div><div class="line">left.get()</div><div class="line">right.get()</div><div class="line">left.put(left_fitx)</div><div class="line">right.put(right_fitx)</div><div class="line"></div><div class="line">left_pre_avg = np.mean(left_fitx)</div><div class="line">right_pre_avg = np.mean(right_fitx)</div><div class="line"></div><div class="line">left_x = left.avg()</div><div class="line">right_x = right.avg()</div><div class="line"></div><div class="line">pts_left = np.array([np.transpose(np.vstack([left_x, plot_y]))])</div><div class="line">pts_right = np.array([np.flipud(np.transpose(np.vstack([right_x, plot_y])))])</div><div class="line">pts = np.hstack((pts_left, pts_right))</div><div class="line"></div><div class="line">cv2.fillPoly(color_warp, np.int_([pts]), (0,255, 0))</div><div class="line">newwarp = cv2.warpPerspective(color_warp, minv, (image.shape[1], image.shape[0])) </div><div class="line"></div><div class="line"><span class="comment"># Combine the result with the original image</span></div><div class="line">result = cv2.addWeighted(undist, 1, newwarp, 0.3, 0)</div><div class="line">plt.imshow(result)</div><div class="line">return result</div><div class="line"></div><div class="line">image = plt.imread('test_images/test1.jpg')</div><div class="line">process_frame(image)</div></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="Pipeline-video"><a href="#Pipeline-video" class="headerlink" title="Pipeline (video)"></a>Pipeline (video)</h3><h4 id="1-Provide-a-link-to-your-final-video-output"><a href="#1-Provide-a-link-to-your-final-video-output" class="headerlink" title="1. Provide a link to your final video output."></a>1. Provide a link to your final video output.</h4><p>Here’s a <a href="https://youtu.be/QzMzDmW57jU" target="_blank" rel="external">video</a><br>There is also a project_output.mp4 in the <a href="https://github.com/fighting41love/Udacity_Advanced_Lane_Line_Detection_P4/blob/master/project_output.mp4" target="_blank" rel="external">github</a>.</p>
+<hr>
+<h3 id="Discussion"><a href="#Discussion" class="headerlink" title="Discussion"></a>Discussion</h3><h4 id="1-Briefly-discuss-any-problems-issues-you-faced-in-your-implementation-of-this-project-Where-will-your-pipeline-likely-fail-What-could-you-do-to-make-it-more-robust"><a href="#1-Briefly-discuss-any-problems-issues-you-faced-in-your-implementation-of-this-project-Where-will-your-pipeline-likely-fail-What-could-you-do-to-make-it-more-robust" class="headerlink" title="1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?"></a>1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?</h4><p>The present method works well on the project video. However, it doesn’t work on the challenge and hard_challenge video. The shadow on the road, the lightness and the sharp bend are also challenging situations that my method will fail. Preprocessing the data is a way to make the method robust. However, the parameters in my code are fixed. It’s a promising direction for deep learning model to identify the lane line automatically (without fixing parameters). However, data collection of the self-driving car is the limitation.</p>
+
+  </section>
+
+  
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'yangyangfuture'; 
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2017/09/19/Advanced Lane Line Detection/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"fighting41love"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+ 
+</footer>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]--><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>

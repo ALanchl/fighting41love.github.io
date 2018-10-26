@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+
+    
+
+    <title>
+      python crontab 使用方法 | Yang Yang 
+    </title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    
+      <meta name="author" content="Yang">
+    
+    
+
+    <meta name="description" content="微博寻人公益项目进行了一个月左右了。一个人做，进展缓慢，有很多问题，仅能通过互联网解决。孤立无助的滋味很难受。 这两天完成的工作是 “每天自动启动微博寻人公益机器人”–其实就是每天运行*.py开启机器人。目前linux和mac下，定时运行程序的方法中，最常用的是crontab这个python工具包。 下面简要介绍mac下的步骤：  打开终端，输入 crontab -l, 用于查看已有cronta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="python crontab 使用方法 | Yang Yang">
+<meta property="og:url" content="http://yoursite.com/2016/06/21/python-crontab/index.html">
+<meta property="og:site_name" content="Yang Yang">
+<meta property="og:description" content="微博寻人公益项目进行了一个月左右了。一个人做，进展缓慢，有很多问题，仅能通过互联网解决。孤立无助的滋味很难受。 这两天完成的工作是 “每天自动启动微博寻人公益机器人”–其实就是每天运行*.py开启机器人。目前linux和mac下，定时运行程序的方法中，最常用的是crontab这个python工具包。 下面简要介绍mac下的步骤：  打开终端，输入 crontab -l, 用于查看已有cronta">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-06-08T23:35:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="python crontab 使用方法 | Yang Yang">
+<meta name="twitter:description" content="微博寻人公益项目进行了一个月左右了。一个人做，进展缓慢，有很多问题，仅能通过互联网解决。孤立无助的滋味很难受。 这两天完成的工作是 “每天自动启动微博寻人公益机器人”–其实就是每天运行*.py开启机器人。目前linux和mac下，定时运行程序的方法中，最常用的是crontab这个python工具包。 下面简要介绍mac下的步骤：  打开终端，输入 crontab -l, 用于查看已有cronta">
+    
+    
+    
+      <link rel="icon" type="image/x-icon" href="/favicon.png">
+    
+    <link rel="stylesheet" href="/css/uno.css">
+    <link rel="stylesheet" href="/css/highlight.css">
+    <link rel="stylesheet" href="/css/archive.css"><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+</head>
+<body>
+
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><span class="mobile btn-mobile-menu">
+        <i class="icon icon-list btn-mobile-menu__icon"></i>
+        <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+    </span>
+
+    
+
+<header class="panel-cover panel-cover--collapsed">
+
+
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+    <div class="panel-main__content">
+
+        
+
+        <h1 class="panel-cover__title panel-title"><a href="/" title="link to homepage">Yang Yang</a></h1>
+        <hr class="panel-cover__divider" />
+
+        
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+
+              
+                
+                <li class="navigation__item"><a href="/home" title="" class="">Home</a></li>
+              
+                
+                <li class="navigation__item"><a href="/#blog" title="" class="blog-button">Blog</a></li>
+              
+                
+                <li class="navigation__item"><a href="/publication" title="" class="">Publication</a></li>
+              
+                
+                <li class="navigation__item"><a href="/resume" title="" class="">Resume</a></li>
+              
+                
+                <li class="navigation__item"><a href="/archive" title="" class="">Archive</a></li>
+              
+                
+                <li class="navigation__item"><a href="/contact" title="" class="">Contact</a></li>
+              
+
+            </ul>
+          </nav>
+
+          <!-- ----------------------------
+To add a new social icon simply duplicate one of the list items from below
+and change the class in the <i> tag to match the desired social network
+and then add your link to the <a>. Here is a full list of social network
+classes that you can use:
+
+    icon-social-500px
+    icon-social-behance
+    icon-social-delicious
+    icon-social-designer-news
+    icon-social-deviant-art
+    icon-social-digg
+    icon-social-dribbble
+    icon-social-facebook
+    icon-social-flickr
+    icon-social-forrst
+    icon-social-foursquare
+    icon-social-github
+    icon-social-google-plus
+    icon-social-hi5
+    icon-social-instagram
+    icon-social-lastfm
+    icon-social-linkedin
+    icon-social-medium
+    icon-social-myspace
+    icon-social-path
+    icon-social-pinterest
+    icon-social-rdio
+    icon-social-reddit
+    icon-social-skype
+    icon-social-spotify
+    icon-social-stack-overflow
+    icon-social-steam
+    icon-social-stumbleupon
+    icon-social-treehouse
+    icon-social-tumblr
+    icon-social-twitter
+    icon-social-vimeo
+    icon-social-xbox
+    icon-social-yelp
+    icon-social-youtube
+    icon-social-zerply
+    icon-mail
+
+-------------------------------->
+
+<!-- add social info here -->
+
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+        <div class="content-wrapper__inner entry">
+            
+
+<article class="post-container post-container--single">
+
+  <header class="post-header">
+    
+    <h1 class="post-title">python crontab 使用方法</h1>
+
+    
+
+    <div class="post-meta">
+      <time datetime="2016-06-21" class="post-meta__date date">2016-06-21</time> 
+
+      <span class="post-meta__tags tags">
+
+          
+            <font class="categories">
+            &#8226; 分类:
+            <a class="categories-link" href="/categories/Python/">Python</a>
+            </font>
+          
+
+          
+
+      </span>
+            <span id="busuanzi_container_site_pv">本站总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    </div>
+    
+    
+
+  </header>
+
+  <section id="post-content" class="article-content post">
+    <hr>
+<p><em>微博寻人公益项目进行了一个月左右了。</em><br><em>一个人做，进展缓慢，有很多问题，仅能通过互联网解决。孤立无助的滋味很难受。</em></p>
+<p>这两天完成的工作是 “每天自动启动微博寻人公益机器人”–其实就是每天运行*.py开启机器人。<br>目前linux和mac下，定时运行程序的方法中，最常用的是crontab这个python工具包。</p>
+<p>下面简要介绍mac下的步骤：</p>
+<ol>
+<li><p>打开终端，输入 crontab -l, 用于查看已有crontab job。</p>
+</li>
+<li><p>在终端输入， crontab -e，用于创建、修改新的 job。</p>
+</li>
+<li><p>创建job,可以通过在线生成工具： crontab generator–<a href="http://crontab-generator.org" target="_blank" rel="external">http://crontab-generator.org</a><br>也可以自己写，格式如下：<br>* * * * *  command to execute<br>│ │ │ │ │<br>│ │ │ │ └─── day of week (0 - 6) (0 is Sunday)<br>│ │ │ └──────── month (1 - 12)<br>│ │ └───────────── day of month (1 - 31)<br>│ └────────────────── hour (0 - 23)<br>└─────────────────────── min (0 - 59)</p>
+</li>
+<li><p>将创建的job输入,按Esc,按w q（保存并退出），按caps lock，按zzz。完成编辑，回到终端。</p>
+</li>
+<li><p>终端输入 crontab -l，查看创建好的job。</p>
+<p>​</p>
+</li>
+</ol>
+<h4 id="实例："><a href="#实例：" class="headerlink" title="实例："></a><strong>实例</strong>：</h4><p><strong>10 12 * * * cd /PycharmProjects/selenium_test/ &amp;&amp;</strong> /Users/yy/Public/Anaconda/anaconda/bin/python2.7 /PycharmProjects/selenium_test/selenium_test.py &gt;&gt; /PycharmProjects/selenium_test/log.txt</p>
+<h4 id="简要解释："><a href="#简要解释：" class="headerlink" title="简要解释："></a><strong>简要解释</strong>：</h4><p>工程路径：/PycharmProjects/selenium_test/ 下，首先要cd到该project的路径下，</p>
+<p>然后用指定的python（即 /Users/yy/Public/Anaconda/anaconda/bin/python2.7）</p>
+<p>对.py进行解释（即/PycharmProjects/selenium_test/selenium_test.py）</p>
+<p>输出log到指定路径（即 &gt;&gt; /PycharmProjects/selenium_test/log.txt）</p>
+<p><strong>&amp;&amp;</strong>： 用于连接两个command</p>
+<p>最近发现一个软件，CronniX for mac，可以有效帮助你写contrab的命令。<br>希望会对大家有帮助！</p>
+
+  </section>
+
+  
+
+<section class="post-comments">
+  <div id="disqus_thread"></div>
+  <script type="text/javascript">
+      var disqus_shortname = 'yangyangfuture'; 
+      /* * * DON'T EDIT BELOW THIS LINE * * */
+      (function() {
+          var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+          dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+          (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+  
+
+<section class="post-comments">
+
+    <div class="ds-thread" data-thread-key="2016/06/21/python-crontab/"></div>
+
+    <script type="text/javascript">
+      var duoshuoQuery = {short_name:"fighting41love"};
+      (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+        || document.getElementsByTagName('body')[0]).appendChild(ds);
+      })();
+    </script> 
+
+</section>
+
+
+</article>
+
+
+            <footer class="footer">
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+ 
+</footer>
+
+        </div>
+    </div>
+
+    <!-- js files -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/scale.fix.js"></script>
+    
+
+    
+
+    <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript"> 
+        $(document).ready(function(){
+            MathJax.Hub.Config({ 
+                tex2jax: {inlineMath: [['[latex]','[/latex]'], ['\\(','\\)']]} 
+            });
+        });
+    </script>
+
+
+    
+
+    <script src="/js/awesome-toc.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $.awesome_toc({
+                overlay: true,
+                contentId: "post-content",
+            });
+        });
+    </script>
+
+
+    
+    
+    <!--kill ie6 -->
+<!--[if IE 6]>
+  <script src="//letskillie6.googlecode.com/svn/trunk/2/zh_CN.js"></script>
+<![endif]--><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+
+</body>
+</html>
